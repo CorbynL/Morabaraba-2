@@ -77,26 +77,79 @@ namespace MorabarabaV2
                 startUpPrompt();
 
                 board.drawboard(); //Just a test...
-
+                board = placeCows(board);
                 Console.ReadKey(); // Just to pause while editing
             }
         }
 
         #region Board cow list manipulation
 
-        // place Cow at given position
-        private void placeCow(Cow cow)
-        {
-            while (true)
-            {
-                if (gameBoard.Cows[cow.Position].Position == -1) { Console.WriteLine("Cannot place cow there"); }
-
-                else { gameBoard.Cows[cow.Position] = cow; }
-                // DrawBoard 
-            }
-        }
-
         #endregion
+    
+     // Get Board coordinate from user input
+    static private int converToBoardPos(string input)
+    {
+        Console.WriteLine("Where do you want to place your cow?");
+        switch (input)
+        {
+            case "a1": return 0;
+            case "a4": return 1;
+            case "a7": return 2;
+            case "b2": return 3;
+            case "b4": return 4;
+            case "b6": return 5;
+            case "c3": return 6;
+            case "c4": return 7;
+            case "c5": return 8;
+            case "d1": return 9;
+            case "d2": return 10;
+            case "d3": return 11;
+            case "d5": return 12;
+            case "d6": return 13;
+            case "d7": return 14;
+            case "e3": return 15;
+            case "e4": return 16;
+            case "e5": return 17;
+            case "f2": return 18;
+            case "f4": return 19;
+            case "f6": return 20;
+            case "g1": return 21;
+            case "g4": return 22;
+            case "g7": return 23;
+            default: return -1;
+        }
+    }
+
+
+    // Place cows on board (Phase 1)
+    static private Board placeCows(Board board)
+        {
+            for(int i = 0; i <24; i++)
+            {
+                board.drawboard();
+                Console.WriteLine("Where do you want to place a cow?");
+                int input = converToBoardPos(Console.ReadLine().ToLower());
+                do
+                {
+                    if(input != -1)
+                    {
+                        if (!(board.Cows[input].Position == -1))
+                        {
+                            board.Cows[input] = new Cow(input, 'X', -1, -1);
+                        }
+
+                        else
+                        {
+                            board.drawboard();
+                            Console.WriteLine("Cannot place cow there!");
+                        }
+                    }
+
+                } while (input == -1 || board.Cows[input].Position == -1);
+
+            }
+            return board;
+        }
 
         #region Main Function
 
