@@ -142,7 +142,9 @@ namespace MorabarabaV2
         {
             int i = 0;
             while(i < 24)
-            {               
+            {
+                updateMills(playerID);
+
                 Console.WriteLine("Where do you want to place a cow?");
                 int input = converToBoardPos(Console.ReadLine().ToLower());
                 while (input == -1)
@@ -188,10 +190,20 @@ namespace MorabarabaV2
             while(!canKill(input, playerID))
             {
                 Console.WriteLine("Cannot kill that!");
+                input = converToBoardPos(Console.ReadLine().ToLower());
             }
             gameBoard.Cows[input].UserId = ' ';
             gameBoard.Cows[input].Id = -1;
 
+        }
+
+    static private void updateMills(int playerID)
+        {
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if(mill.Id == playerID 
+                    && mill.isNew) { mill.isNew = false; }
+            }
         }
 
     static private bool areNewMills(int playerID)
@@ -214,7 +226,7 @@ namespace MorabarabaV2
         {
             foreach(Mill mill in gameBoard.Mills)
             {
-                if (areInMill(mill.Positions, playerID))
+                if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
                 {
                     mill.isNew = true;
                     mill.Id = playerID;
