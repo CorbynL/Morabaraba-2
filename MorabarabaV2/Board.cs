@@ -9,7 +9,7 @@ namespace MorabarabaV2
     public class Board
     {
         public Cow[] Cows;
-        public Mill[] Mills;
+        public Mill[] Mill;
 
 
         public Board()
