@@ -160,12 +160,38 @@ namespace MorabarabaV2
 
                 gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
 
+                getCurrentMills(playerID);
 
+                if (areNewMills(playerID))
+                {
+                    killCow(playerID);
+                }
 
                 playerID = switchPlayer(playerID);
                 gameBoard.drawboard();
                 i = i + 1;
             }
+        }
+
+    static private bool canKill(int position, int playerID)
+    {
+            if (gameBoard.Cows[position].Id == playerID
+                || gameBoard.Cows[position].Id == -1) { return false; }
+            return true;
+    }
+
+        static private void killCow(int playerID)
+        {
+            Console.WriteLine("Chose a cow to kill");
+
+            int input = converToBoardPos(Console.ReadLine().ToLower());
+            while(!canKill(input, playerID))
+            {
+                Console.WriteLine("Cannot kill that!");
+            }
+            gameBoard.Cows[input].UserId = ' ';
+            gameBoard.Cows[input].Id = -1;
+
         }
 
     static private bool areNewMills(int playerID)
@@ -191,6 +217,7 @@ namespace MorabarabaV2
                 if (areInMill(mill.Positions, playerID))
                 {
                     mill.isNew = true;
+                    mill.Id = playerID;
                 }
             }
         }
