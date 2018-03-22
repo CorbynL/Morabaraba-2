@@ -17,7 +17,7 @@ namespace MorabarabaV2
             Cows = new Cow[24];           
 
             for (int i = 0; i < 24; i++)            
-                Cows[i] = new Cow(i);
+                Cows[i] = new Cow(i,' ',-1,-1);
 
             Mills = CreateEmptyMills();
         }        

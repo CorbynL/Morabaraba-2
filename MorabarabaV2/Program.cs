@@ -78,14 +78,14 @@ namespace MorabarabaV2
 
         static void startLoop()
         {
+            startUpPrompt();
+            gameBoard.drawboard();
             //Keep looping the game unless told not to 
             while (true)
             {
-                startUpPrompt();
-
-                gameBoard.drawboard(); //Just a test...
-                placeCows();
-                Console.ReadKey(); // Just to pause while editing
+                // 0 = player 1
+                placeCows(0);
+                break; // Just to pause while editing
             }
         }
 
@@ -96,7 +96,6 @@ namespace MorabarabaV2
      // Get Board coordinate from user input
     static private int converToBoardPos(string input)
     {
-        Console.WriteLine("Where do you want to place your cow?");
         switch (input)
         {
             case "a1": return 0;
@@ -127,34 +126,42 @@ namespace MorabarabaV2
         }
     }
 
+    private static char getPlayerChar(int playerID)
+        {
+            if (playerID == 0) { return 'R'; }
+            else return 'B';
+        }
+    private static int switchPlayer(int playerID)
+        {
+            if (playerID == 0) { return 1; }
+            else return 0;
+        }
 
     // Place cows on board (Phase 1)
-    static private void placeCows()
+    static private void placeCows(int playerID)
         {
-            for(int i = 0; i <24; i++)
-            {
-                gameBoard.drawboard();
+            int i = 0;
+            while(i < 24)
+            {               
                 Console.WriteLine("Where do you want to place a cow?");
                 int input = converToBoardPos(Console.ReadLine().ToLower());
-                do
+                while (input == -1)
                 {
-                    if(input != -1)
-                    {
-                        if (!(
-                            gameBoard.Cows[input].Position == -1))
-                        {
+                    gameBoard.drawboard();
+                    Console.WriteLine("Incorrect input!");
+                    input = converToBoardPos(Console.ReadLine().ToLower());
+                }
+                if (!(gameBoard.Cows[input].Id == -1) || gameBoard.Cows[input].Id == switchPlayer(playerID))
+                {
+                    gameBoard.drawboard();
+                    Console.WriteLine("Cannot place there!");
+                    continue;
+                } 
 
-                            gameBoard.Cows[input] = new Cow(input, 'X', -1, -1);
-                        }
-
-                        else
-                        {
-                            gameBoard.drawboard();
-                            Console.WriteLine("Cannot place cow there!");
-                        }
-                    }
-
-                } while (input == -1 || gameBoard.Cows[input].Position == -1);
+                gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
+                playerID = switchPlayer(playerID);
+                gameBoard.drawboard();
+                i = i + 1;
             }
         }
 
