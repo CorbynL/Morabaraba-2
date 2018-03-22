@@ -17,11 +17,9 @@ namespace MorabarabaV2
             Cows = new Cow[24];
             Mills = new Mill[24];
 
-            for (int i = 0; i < 24; i++)
-            {
-                Cows[i] = new Cow(i);
-                Mills[i] = new Mill(new Cow[0]);
-            }
+            for (int i = 0; i < 24; i++)            
+                Cows[i] = new Cow(i);               
+            
             
         }
 
