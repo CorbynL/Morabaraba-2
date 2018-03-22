@@ -10,7 +10,7 @@ namespace MorabarabaV2
     {
 
         #region The Global variables!!!
-        public Board gameBoard;
+        static private Board gameBoard;
         
         #endregion
 
@@ -76,15 +76,15 @@ namespace MorabarabaV2
 
         #endregion
 
-        static void startLoop(Board board)
+        static void startLoop()
         {
             //Keep looping the game unless told not to 
             while (true)
             {
                 startUpPrompt();
 
-                board.drawboard(); //Just a test...
-                board = placeCows(board);
+                gameBoard.drawboard(); //Just a test...
+                placeCows();
                 Console.ReadKey(); // Just to pause while editing
             }
         }
@@ -129,41 +129,42 @@ namespace MorabarabaV2
 
 
     // Place cows on board (Phase 1)
-    static private Board placeCows(Board board)
+    static private void placeCows()
         {
             for(int i = 0; i <24; i++)
             {
-                board.drawboard();
+                gameBoard.drawboard();
                 Console.WriteLine("Where do you want to place a cow?");
                 int input = converToBoardPos(Console.ReadLine().ToLower());
                 do
                 {
                     if(input != -1)
                     {
-                        if (!(board.Cows[input].Position == -1))
+                        if (!(
+                            gameBoard.Cows[input].Position == -1))
                         {
-                            board.Cows[input] = new Cow(input, 'X', -1, -1);
+
+                            gameBoard.Cows[input] = new Cow(input, 'X', -1, -1);
                         }
 
                         else
                         {
-                            board.drawboard();
+                            gameBoard.drawboard();
                             Console.WriteLine("Cannot place cow there!");
                         }
                     }
 
-                } while (input == -1 || board.Cows[input].Position == -1);
-
+                } while (input == -1 || gameBoard.Cows[input].Position == -1);
             }
-            return board;
         }
 
         #region Main Function
 
         static void Main(string[] args)
         {
+            gameBoard = new Board();
             Console.SetWindowSize(Console.WindowWidth, 50);
-            startLoop(new Board());
+            startLoop();
 
         }
 
