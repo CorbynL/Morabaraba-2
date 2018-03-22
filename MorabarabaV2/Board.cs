@@ -12,7 +12,7 @@ namespace MorabarabaV2
         public Mill[] Mills;
 
 
-        public Board(Cow[] cows)
+        public Board()
         {
             Cows = new Cow[24];           
 
@@ -20,9 +20,7 @@ namespace MorabarabaV2
                 Cows[i] = new Cow(i);
 
             Mills = CreateEmptyMills();
-
-
-        }
+        }        
 
         // Get an empty cow at a given position (if empty at all)
         public Cow Empty (int i)
@@ -37,8 +35,8 @@ namespace MorabarabaV2
         }
 
         // Create empty array of empty mills
-        public Mill[] CreateEmptyMills ()
-        {            
+        public Mill[] CreateEmptyMills()
+        {
             return new Mill[] {
                 new Mill(new int[] { 0, 1, 2 }),        // A1, A4, A7
                 new Mill(new int[] { 3, 4, 5 } ),       // B2, B4, B6
@@ -61,7 +59,44 @@ namespace MorabarabaV2
                 new Mill(new int[] { 2, 5, 8 }),        // C5, B6, A7
                 new Mill(new int[] { 17, 20, 23 })      // E5, F6, G7
             };
-                
+        }
+
+        static void printCenterLine(string line)
+        {
+            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+            Console.WriteLine(line);
+
+        }
+
+        public void drawboard()  // print the board         
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            printCenterLine(" __  __                           _                               _              ");
+            printCenterLine("|  \\/  |   ___      _ _   __ _   | |__    __ _      _ _   __ _   | |__    __ _   ");
+            printCenterLine("| |\\/| |  / _ \\    | '_| / _` |  | '_ \\  / _` |    | '_| / _` |  | '_ \\  / _` |  ");
+            printCenterLine("|_|__|_|  \\___/   _|_|_  \\__,_|  |_.__/  \\__,_|   _|_|_  \\__,_|  |_.__/  \\__,_|  ");
+            printCenterLine("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
+            printCenterLine("\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
+            Console.WriteLine("");
+
+
+            printCenterLine("  1   2   3   4   5   6   7");
+            printCenterLine("");
+            printCenterLine(String.Format(" A   ({0})---------({1})---------({2})    ", Cows[0].UserId, Cows[1].UserId, Cows[2].UserId));
+            printCenterLine("     | \\         |         / |    ");
+            printCenterLine(String.Format(" B    |  ({0})-----({1})-----({2})  |    ", Cows[3].UserId, Cows[4].UserId, Cows[5].UserId));
+            printCenterLine("     |   | \\     |     / |   |    ");
+            printCenterLine(String.Format(" C    |   |  ({0})-({1})-({2})  |   |    ", Cows[6].UserId, Cows[7].UserId, Cows[8].UserId));
+            printCenterLine("     |   |   |       |   |   |    ");
+            printCenterLine(String.Format(" D   ({0})-({1})-({2})     ({3})-({4})-({5})    ", Cows[9].UserId, Cows[10].UserId, Cows[11].UserId, Cows[12].UserId, Cows[13].UserId, Cows[14].UserId));
+            printCenterLine("     |   |   |       |   |   |    ");
+            printCenterLine(String.Format(" E    |   |  ({0})-({1})-({2})  |   |    ", Cows[15].UserId, Cows[16].UserId, Cows[17].UserId));
+            printCenterLine("     |   | /     |     \\ |   |    ");
+            printCenterLine(String.Format(" F    |  ({0})-----({1})-----({2})  |    ", Cows[18].UserId, Cows[19].UserId, Cows[20].UserId));
+            printCenterLine("     | /         |         \\ |    ");
+            printCenterLine(String.Format(" G   ({0})---------({1})---------({2})    ", Cows[21].UserId, Cows[22].UserId, Cows[23].UserId));
+
         }
 
     }
