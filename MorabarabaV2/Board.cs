@@ -13,10 +13,23 @@ namespace MorabarabaV2
 
         public Board(Cow[] cows)
         {
-            Cows = cows;
+            Cows = new Cow[24];
+            for (int i = 0; i < 24; i++)
+                Cows[i] = new Cow(i);
 
         }
 
+        // Get an empty cow at a given position (if empty at all)
+        public Cow Empty (int i)
+        {
+            if (i < 0 || 23 < i)
+                return null;
+
+            if (Cows[i].Id == -1)
+                return Cows[i];
+
+            else return null;
+        }
 
     }
 }
