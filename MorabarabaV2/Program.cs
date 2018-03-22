@@ -76,25 +76,9 @@ namespace MorabarabaV2
 
         #endregion
 
-        static void startLoop()
-        {
-            startUpPrompt();
-            gameBoard.drawboard();
-            //Keep looping the game unless told not to 
-            while (true)
-            {
-                // 0 = player 1
-                placeCows(0);
-                break; // Just to pause while editing
-            }
-        }
-
-        #region Board cow list manipulation
-
-        #endregion
-    
-     // Get Board coordinate from user input
-    static private int converToBoardPos(string input)
+    #region input functions
+        // Get Board coordinate from user input
+        static private int converToBoardPos(string input)
     {
         switch (input)
         {
@@ -126,7 +110,9 @@ namespace MorabarabaV2
         }
     }
 
-    private static char getPlayerChar(int playerID)
+    #endregion
+        #region player functions
+        private static char getPlayerChar(int playerID)
         {
             if (playerID == 0) { return 'R'; }
             else return 'B';
@@ -137,8 +123,10 @@ namespace MorabarabaV2
             else return 0;
         }
 
-    // Place cows on board (Phase 1)
-    static private void placeCows(int playerID)
+    #endregion
+    #region Cow List functions
+        // Place cows on board (Phase 1)
+        static private void placeCows(int playerID)
         {
             int i = 0;
             while(i < 24)
@@ -175,7 +163,8 @@ namespace MorabarabaV2
             }
         }
 
-    static private bool canKill(int position, int playerID)
+    
+        static private bool canKill(int position, int playerID)
     {
             if (gameBoard.Cows[position].Id == playerID
                 || gameBoard.Cows[position].Id == -1) { return false; }
@@ -196,43 +185,61 @@ namespace MorabarabaV2
             gameBoard.Cows[input].Id = -1;
 
         }
+    #endregion
+
+    #region Mill functions
 
     static private void updateMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
         {
-            foreach(Mill mill in gameBoard.Mills)
+            if(mill.Id == playerID 
+                && mill.isNew) { mill.isNew = false; }
+        }
+    }
+
+static private bool areNewMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
+        {
+            if(mill.Id == playerID && mill.isNew) { return true; }
+        }
+        return false;
+    }
+
+static private bool areInMill(int[] cows, int playerID)
+    {
+        return gameBoard.Cows[cows[0]].Id == playerID
+            && gameBoard.Cows[cows[1]].Id == playerID
+            && gameBoard.Cows[cows[2]].Id == playerID;
+    }
+
+static private void getCurrentMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
+        {
+            if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
             {
-                if(mill.Id == playerID 
-                    && mill.isNew) { mill.isNew = false; }
+                mill.isNew = true;
+                mill.Id = playerID;
             }
         }
+    }
+        #endregion
 
-    static private bool areNewMills(int playerID)
+    // Main Loop
+    static void startLoop()
+    {
+        startUpPrompt();
+        gameBoard.drawboard();
+        //Keep looping the game unless told not to 
+        while (true)
         {
-            foreach(Mill mill in gameBoard.Mills)
-            {
-                if(mill.Id == playerID && mill.isNew) { return true; }
-            }
-            return false;
+            // 0 = player 1
+            placeCows(0);
+            break; // Just to pause while editing
         }
-
-    static private bool areInMill(int[] cows, int playerID)
-        {
-            return gameBoard.Cows[cows[0]].Id == playerID
-                && gameBoard.Cows[cows[1]].Id == playerID
-                && gameBoard.Cows[cows[2]].Id == playerID;
-        }
-
-    static private void getCurrentMills(int playerID)
-        {
-            foreach(Mill mill in gameBoard.Mills)
-            {
-                if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
-                {
-                    mill.isNew = true;
-                    mill.Id = playerID;
-                }
-            }
-        }
+    }
 
         #region Main Function
 
