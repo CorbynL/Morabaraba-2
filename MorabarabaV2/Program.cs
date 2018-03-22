@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
-    class Program
+    public class Program
     {
-        private Board gameBoard;
 
         #region The Global variables!!!
-
-        //I'm the global cow list
-        public static List<Cow> GlobalCow = new List<Cow>();
-
+        public Board gameBoard;
+        
         #endregion
 
 
@@ -70,56 +67,16 @@ namespace MorabarabaV2
             Console.ReadKey();
         }
 
-
-
-        static void drawboard()  // print the board         
-        {
-            Console.Clear();
-            Console.WriteLine("");
-            printCenterLine(" __  __                           _                               _              ");
-            printCenterLine("|  \\/  |   ___      _ _   __ _   | |__    __ _      _ _   __ _   | |__    __ _   ");
-            printCenterLine("| |\\/| |  / _ \\    | '_| / _` |  | '_ \\  / _` |    | '_| / _` |  | '_ \\  / _` |  ");
-            printCenterLine("|_|__|_|  \\___/   _|_|_  \\__,_|  |_.__/  \\__,_|   _|_|_  \\__,_|  |_.__/  \\__,_|  ");
-            printCenterLine("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
-            printCenterLine("\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
-            Console.WriteLine("");
-
-
-            printCenterLine("  1   2   3   4   5   6   7");
-            printCenterLine("");
-            printCenterLine(String.Format(" A   ({0})---------({1})---------({2})    ", GlobalCow[0].UserId, GlobalCow[1].UserId, GlobalCow[2].UserId));
-            printCenterLine("     | \\         |         / |    ");
-            printCenterLine(String.Format(" B    |  ({0})-----({1})-----({2})  |    ", GlobalCow[3].UserId, GlobalCow[4].UserId, GlobalCow[5].UserId));
-            printCenterLine("     |   | \\     |     / |   |    ");
-            printCenterLine(String.Format(" C    |   |  ({0})-({1})-({2})  |   |    ", GlobalCow[6].UserId, GlobalCow[7].UserId, GlobalCow[8].UserId));
-            printCenterLine("     |   |   |       |   |   |    ");
-            printCenterLine(String.Format(" D   ({0})-({1})-({2})     ({3})-({4})-({5})    ", GlobalCow[9].UserId, GlobalCow[10].UserId, GlobalCow[11].UserId, GlobalCow[12].UserId, GlobalCow[13].UserId, GlobalCow[14].UserId));
-            printCenterLine("     |   |   |       |   |   |    ");
-            printCenterLine(String.Format(" E    |   |  ({0})-({1})-({2})  |   |    ", GlobalCow[15].UserId, GlobalCow[16].UserId, GlobalCow[17].UserId));
-            printCenterLine("     |   | /     |     \\ |   |    ");
-            printCenterLine(String.Format(" F    |  ({0})-----({1})-----({2})  |    ", GlobalCow[18].UserId, GlobalCow[19].UserId, GlobalCow[20].UserId));
-            printCenterLine("     | /         |         \\ |    ");
-            printCenterLine(String.Format(" G   ({0})---------({1})---------({2})    ", GlobalCow[21].UserId, GlobalCow[22].UserId, GlobalCow[23].UserId));
-
-        }
-
         #endregion
 
-        static void gamePlay()
+        static void startLoop(Board board)
         {
             //Keep looping the game unless told not to 
             while (true)
             {
                 startUpPrompt();
 
-                //Populate the gobal cow list
-                for (int i = 0; i < 24; i++)
-                {
-                    GlobalCow.Add(new Cow());           //int Position, char UserId, int CowNumber, int Id
-                }
-
-                drawboard(); //Just a test...
-
+                board.drawboard(); //Just a test...
 
                 Console.ReadKey(); // Just to pause while editing
             }
@@ -146,7 +103,7 @@ namespace MorabarabaV2
         static void Main(string[] args)
         {
             Console.SetWindowSize(Console.WindowWidth, 50);
-            gamePlay();
+            startLoop(new Board());
 
         }
 
