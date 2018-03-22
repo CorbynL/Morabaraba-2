@@ -8,11 +8,15 @@ namespace MorabarabaV2
 {
     public class Mill
     {
-        Cow[] Cows;
+        private int[] Positions;
+        public bool isNew { get; set; }
+        public int Id { get; set; }
 
-        public Mill(Cow[] cows)
+        public Mill(int[] Positions, int Id = -1)
         {
-            Cows = cows;
+            this.Positions = Positions;
+            isNew = false;
+            this.Id = Id;
         }
     }
 }
