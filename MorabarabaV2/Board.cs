@@ -9,14 +9,18 @@ namespace MorabarabaV2
     public class Board
     {
         public Cow[] Cows;
+        public Mill[] Mills;
 
 
         public Board(Cow[] cows)
         {
             Cows = new Cow[24];
-            for (int i = 0; i < 24; i++)
-                Cows[i] = new Cow(i);
+            Mills = new Mill[24];
 
+            for (int i = 0; i < 24; i++)            
+                Cows[i] = new Cow(i);               
+            
+            
         }
 
         public Board()
