@@ -8,7 +8,7 @@ namespace MorabarabaV2
 {
     public class Mill
     {
-        private int[] Positions;
+        public int[] Positions;
         public bool isNew { get; set; }
         public int Id { get; set; }
 

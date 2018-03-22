@@ -159,9 +159,39 @@ namespace MorabarabaV2
                 } 
 
                 gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
+
+
+
                 playerID = switchPlayer(playerID);
                 gameBoard.drawboard();
                 i = i + 1;
+            }
+        }
+
+    static private bool areNewMills(int playerID)
+        {
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if(mill.Id == playerID && mill.isNew) { return true; }
+            }
+            return false;
+        }
+
+    static private bool areInMill(int[] cows, int playerID)
+        {
+            return gameBoard.Cows[cows[0]].Id == playerID
+                && gameBoard.Cows[cows[1]].Id == playerID
+                && gameBoard.Cows[cows[2]].Id == playerID;
+        }
+
+    static private void getCurrentMills(int playerID)
+        {
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if (areInMill(mill.Positions, playerID))
+                {
+                    mill.isNew = true;
+                }
             }
         }
 
