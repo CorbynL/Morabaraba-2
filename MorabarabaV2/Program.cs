@@ -6,7 +6,7 @@ namespace MorabarabaV2
     {
 
         #region The Global variables!!!
-        static private Board gameBoard;
+        public static Board gameBoard;
         
         #endregion
 
@@ -129,7 +129,7 @@ namespace MorabarabaV2
             int i = 0;
             while(i < 24)
             {
-                updateMills(playerID);
+                gameBoard.updateMills(playerID);
 
                 Console.WriteLine("Where do you want to place a cow?");
                 int input = converToBoardPos(Console.ReadLine().ToLower());
@@ -187,14 +187,7 @@ namespace MorabarabaV2
 
         #region Mill functions
 
-        static private void updateMills(int playerID)
-        {
-            foreach(Mill mill in gameBoard.Mills)
-            {
-                if(mill.Id == playerID 
-                    && mill.isNew) { mill.isNew = false; }
-            }
-        }
+
 
         static private bool areNewMills(int playerID)
         {
