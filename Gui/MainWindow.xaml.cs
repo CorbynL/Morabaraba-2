@@ -33,6 +33,9 @@ namespace Gui
 
         private void onClick_Input(object sender, RoutedEventArgs e)
         {
+            _gameSession.currentInput = inBox.Text;
+            inBox.Clear();
+            _gameSession.preformAction();
 
         }
     }

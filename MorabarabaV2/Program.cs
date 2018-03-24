@@ -1,217 +1,253 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
     public class Program
     {
 
-        // Main Game Board 
-        private static Board board;
+        #region The Global variables!!!
+        static private Board gameBoard;
+        
+        #endregion
 
 
         #region Writing to the screen
 
-        // Print in the middle of the console
-        static void printCenter(string line)
+        static void printCenterLine(string line)
         {
             Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
             Console.WriteLine(line);
-            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
+
         }
 
         static void startUpPrompt()
         {
-            Console.SetWindowPosition(0,0);
-            Console.SetWindowSize(Console.WindowWidth, 60);
             Console.ForegroundColor = ConsoleColor.Green;
 
-            printCenter("   *                                                        ");
-            printCenter(" (  `                       )                      )        ");
-            printCenter(" )\\))(        (       )  ( /(     )  (       )  ( /(     )  ");
-            printCenter("((_)()\\   (   )(   ( /(  )\\()) ( /(  )(   ( /(  )\\()) ( /(  ");
-            printCenter("(_()((_)  )\\ (()\\  )(_))((_)\\  )(_))(()\\  )(_))((_)\\  )(_)) ");
-            printCenter("|  \\/  | ((_) ((_)((_)_ | |(_)((_)_  ((_)((_)_ | |(_)((_)_  ");
-            printCenter("| |\\/| |/ _ \\| '_|/ _` || '_ \\/ _` || '_|/ _` || '_ \\/ _` | ");
-            printCenter("|_|  |_|\\___/|_|  \\__,_||_.__/\\__,_||_|  \\__,_||_.__/\\__,_| ");
-            Console.WriteLine("\n\n\n");
-            printCenter(" ------------------- Let the Games Begin! ------------------- ");
+            printCenterLine("   *                                                        ");
+            printCenterLine(" (  `                       )                      )        ");
+            printCenterLine(" )\\))(        (       )  ( /(     )  (       )  ( /(     )  ");
+            printCenterLine("((_)()\\   (   )(   ( /(  )\\()) ( /(  )(   ( /(  )\\()) ( /(  ");
+            printCenterLine("(_()((_)  )\\ (()\\  )(_))((_)\\  )(_))(()\\  )(_))((_)\\  )(_)) ");
+            printCenterLine("|  \\/  | ((_) ((_)((_)_ | |(_)((_)_  ((_)((_)_ | |(_)((_)_  ");
+            printCenterLine("| |\\/| |/ _ \\| '_|/ _` || '_ \\/ _` || '_|/ _` || '_ \\/ _` | ");
+            printCenterLine("|_|  |_|\\___/|_|  \\__,_||_.__/\\__,_||_|  \\__,_||_.__/\\__,_| ");
+            Console.WriteLine("\n\n\n(");
+            printCenterLine(" ------------------- Let the Games Begin! ------------------- ");
             Console.WriteLine("\n\n");
-            printCenter(" ---- [ Rules ] ---- ");
+            printCenterLine(" ---- [ Rules ] ---- ");
             Console.WriteLine("");
-            printCenter("1. Morabaraba consists of a board with pieces which we refer to as 'cows'.");
-            printCenter("Each player starts with 12 cows and the game consists of 3 phases:");
-            printCenter("Placing, Moving and Flying.\n");
-            printCenter("i. Placing - Place one of your 12 cows you start with at a board-position.");
-            printCenter("ii. Moving - Once you have placed your 12 cows, move your cow to any empty");
-            printCenter("position neighbouring your cow.");
-            printCenter("iii. Flying - When you have 3 cows left, you can then move your cow to any");
-            printCenter("empty position on the board you feel like.\n");
+            printCenterLine("1. Morabaraba consists of a board with pieces which we refer to as 'cows'.");
+            printCenterLine("Each player starts with 12 cows and the game consists of 3 phases:");
+            printCenterLine("Placing, Moving and Flying.\n");
+            printCenterLine("i. Placing - Place one of your 12 cows you start with at a board-position.");
+            printCenterLine("ii. Moving - Once you have placed your 12 cows, move your cow to any empty");
+            printCenterLine("position neighbouring your cow.");
+            printCenterLine("iii. Flying - When you have 3 cows left, you can then move your cow to any");
+            printCenterLine("empty position on the board you feel like.\n");
             Console.WriteLine("");
-            printCenter("2. You can eliminate your opponent's cows using mills.\n");
-            printCenter(" A mill is when you get 3");
-            printCenter("of your cows in a row (including straight diagonals).\n");
-            printCenter("When formed, you will be asked");
-            printCenter("which of your opponents cows you would like to kill. Enter their");
-            printCenter("their board-position and");
-            printCenter("*poof* free Beef-Wellington for dinner. There are some\n");
-            printCenter("rules to mills, such as:\n");
-            printCenter("i. You can only form the same mill with the same cows\n");
-            printCenter("after 2 of your turns has passed.");
-            printCenter("ii. If you form a mill, you cannot kill cows that are in a\n");
-            printCenter("mill already i.e. they are safe.");
-            printCenter("iii. If you form a mill and all of your opponent's cows are in\n");
-            printCenter("in mills, then you may kill any of cow.\n");
+            printCenterLine("2. You can eliminate your opponent's cows using mills.\n");
+            printCenterLine(" A mill is when you get 3");
+            printCenterLine("of your cows in a row (including straight diagonals).\n");
+            printCenterLine("When formed, you will be asked");
+            printCenterLine("which of your opponents cows you would like to kill. Enter their");
+            printCenterLine("their board-position and");
+            printCenterLine("*poof* free Beef-Wellington for dinner. There are some\n");
+            printCenterLine("rules to mills, such as:\n");
+            printCenterLine("i. You can only form the same mill with the same cows\n");
+            printCenterLine("after 2 of your turns has passed.");
+            printCenterLine("ii. If you form a mill, you cannot kill cows that are in a\n");
+            printCenterLine("mill already i.e. they are safe.");
+            printCenterLine("iii. If you form a mill and all of your opponent's cows are in\n");
+            printCenterLine("in mills, then you may kill any of cow.\n");
             Console.WriteLine("");
-            printCenter("3. WIN - When your opponent has only 2 cows left, then you win!\n");
+            printCenterLine("3. WIN - When your opponent has only 2 cows left, then you win!\n");
             Console.WriteLine("");
-            printCenter("4. If no vaild moves are available to any player, the game ends in a DRAW.\n");
+            printCenterLine("4. If no vaild moves are available to any player, the game ends in a DRAW.\n");
             Console.WriteLine("");
-            printCenter(" --- [ Press Enter to Begin ] --- ");
+            printCenterLine(" --- [ Press Enter to Begin ] --- ");
 
             Console.ReadKey();
         }
 
-        static void switchcolours()
-        {
-            if (Console.ForegroundColor == ConsoleColor.Blue || Console.ForegroundColor == ConsoleColor.Green)
-                Console.ForegroundColor = ConsoleColor.Red;
-            else
-                Console.ForegroundColor = ConsoleColor.Blue;
-        }
-
-        static void playerWinsStartAgain(int player)
-        {
-            Console.Clear();
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n");
-            printCenter(String.Format("Player {0} wins!!!\n\n",player));
-            printCenter("Type 'Yes' to start a new game or push enter to exit");
-            string input = Console.ReadLine();
-            if (input.ToLower() == "yes")
-            {
-                board.newCows();
-                gameLoop();
-
-            }
-            else
-                Environment.Exit(0);
-        }
-
         #endregion
-        
-        #region Phase 1 (Placing and Killing Cows
-        // Place cows on board (Phase 1)
-        static void placeCows(int playerID = 0)
-        {
 
+    #region input functions
+        // Get Board coordinate from user input
+        static private int converToBoardPos(string input)
+    {
+        switch (input)
+        {
+            case "a1": return 0;
+            case "a4": return 1;
+            case "a7": return 2;
+            case "b2": return 3;
+            case "b4": return 4;
+            case "b6": return 5;
+            case "c3": return 6;
+            case "c4": return 7;
+            case "c5": return 8;
+            case "d1": return 9;
+            case "d2": return 10;
+            case "d3": return 11;
+            case "d5": return 12;
+            case "d6": return 13;
+            case "d7": return 14;
+            case "e3": return 15;
+            case "e4": return 16;
+            case "e5": return 17;
+            case "f2": return 18;
+            case "f4": return 19;
+            case "f6": return 20;
+            case "g1": return 21;
+            case "g4": return 22;
+            case "g7": return 23;
+            default: return -1;
+        }
+    }
+
+    #endregion
+        #region player functions
+        private static char getPlayerChar(int playerID)
+        {
+            if (playerID == 0) { return 'R'; }
+            else return 'B';
+        }
+    private static int switchPlayer(int playerID)
+        {
+            if (playerID == 0) { return 1; }
+            else return 0;
+        }
+
+    #endregion
+    #region Cow List functions
+        // Place cows on board (Phase 1)
+        static private void placeCows(int playerID)
+        {
             int i = 0;
             while(i < 24)
             {
-                // Set colour acording to player
-                switchcolours();
+                updateMills(playerID);
 
-                board.drawboard();
-
-                board.updateMills(playerID);
-          
-                printCenter("Where do you want to place a cow?\n");
-                int input = board.converToBoardPos(Console.ReadLine());
+                Console.WriteLine("Where do you want to place a cow?");
+                int input = converToBoardPos(Console.ReadLine().ToLower());
                 while (input == -1)
                 {
-                    printCenter("Incorrect input!\n");
-                    input = board.converToBoardPos(Console.ReadLine());
+                    gameBoard.drawboard();
+                    Console.WriteLine("Incorrect input!");
+                    input = converToBoardPos(Console.ReadLine().ToLower());
                 }
-                if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
+                if (!(gameBoard.Cows[input].Id == -1) || gameBoard.Cows[input].Id == switchPlayer(playerID))
                 {
-                    printCenter("Cannot place there!\n");
+                    gameBoard.drawboard();
+                    Console.WriteLine("Cannot place there!");
                     continue;
                 } 
 
-                board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), i, playerID);
+                gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
 
-                board.getCurrentMills(playerID);
+                getCurrentMills(playerID);
 
-                if (board.areNewMills(playerID))
+                if (areNewMills(playerID))
                 {
-                    board.killCow(playerID);
+                    killCow(playerID);
                 }
 
-                playerID = board.switchPlayer(playerID);
-
-
-                if (i == 23)    // If we're on the last cow placement and the board is full, player 1 wins and the game ends
-                    if (board.isFullBoard())
-                    {
-                        playerWinsStartAgain(1);
-                        gameLoop();                     // If player wants to start again
-                    }
-
-                i++;
+                playerID = switchPlayer(playerID);
+                gameBoard.drawboard();
+                i = i + 1;
             }
         }
 
+    
+        static private bool canKill(int position, int playerID)
+    {
+            if (gameBoard.Cows[position].Id == playerID
+                || gameBoard.Cows[position].Id == -1) { return false; }
+            return true;
+    }
+
+        static private void killCow(int playerID)
+        {
+            Console.WriteLine("Chose a cow to kill");
+
+            int input = converToBoardPos(Console.ReadLine().ToLower());
+            while(!canKill(input, playerID))
+            {
+                Console.WriteLine("Cannot kill that!");
+                input = converToBoardPos(Console.ReadLine().ToLower());
+            }
+            gameBoard.Cows[input].UserId = ' ';
+            gameBoard.Cows[input].Id = -1;
+
+        }
+    #endregion
+
+    #region Mill functions
+
+    static private void updateMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
+        {
+            if(mill.Id == playerID 
+                && mill.isNew) { mill.isNew = false; }
+        }
+    }
+
+static private bool areNewMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
+        {
+            if(mill.Id == playerID && mill.isNew) { return true; }
+        }
+        return false;
+    }
+
+static private bool areInMill(int[] cows, int playerID)
+    {
+        return gameBoard.Cows[cows[0]].Id == playerID
+            && gameBoard.Cows[cows[1]].Id == playerID
+            && gameBoard.Cows[cows[2]].Id == playerID;
+    }
+
+static private void getCurrentMills(int playerID)
+    {
+        foreach(Mill mill in gameBoard.Mills)
+        {
+            if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
+            {
+                mill.isNew = true;
+                mill.Id = playerID;
+            }
+        }
+    }
         #endregion
 
-        #region Phase 2 (Move Cows)
-
-        static void moveCows()
+    // Main Loop
+    static void startLoop()
+    {
+        startUpPrompt();
+        gameBoard.drawboard();
+        //Keep looping the game unless told not to 
+        while (true)
         {
-            switchcolours();
-
-            board.drawboard();
-
-
-            bool canMove = true;
-            int i = 0; // Start with player 1
-
-            while(canMove)
-            {
-                bool validInput = false;
-                int pos = -1;
-                while (!validInput)   // Check if a valid input has been recieved
-                {
-                    printCenter("Please select a cow to move\n");
-
-                    pos = board.converToBoardPos(Console.ReadLine());
-
-                    if (pos != -1 && board.Cows[pos].Id == i % 2)
-                    {
-                        validInput = true;
-                    }
-                    else
-                        printCenter("Not your Cow!\n");
-                }
-            }
+            // 0 = player 1
+            placeCows(0);
+            break; // Just to pause while editing
         }
+    }
 
-        #endregion
-
-        #region Game Loop and Main Function
-
-        // Main Loop
-        static void gameLoop()
-        {
-            startUpPrompt();
-
-            //Keep looping the game unless told not to 
-            while (true)
-            {
-                // Phase 1 (Place and kill Cows
-                placeCows();                 
-                
-                // Phase 2 (Move and kill Cows
-                moveCows();
-
-
-
-                break; // Just to pause while editing
-            }
-        }
-
+        #region Main Function
 
         static void Main(string[] args)
         {
-            board = new Board();
-            gameLoop();
+            gameBoard = new Board();
+            Console.SetWindowSize(Console.WindowWidth, 50);
+            startLoop();
 
         }
 

@@ -10,6 +10,9 @@ namespace MorabarabaV2
     {
         private Board _board;
         private string _gameMessage;
+        private bool isPlacing;
+        private int playerID;
+        private int placeNum;
 
         public string currentInput { get; set; }
         public Board board
@@ -27,7 +30,7 @@ namespace MorabarabaV2
             set
             {
                 _gameMessage = value;
-                OnPropertyChanged(GameMessage);
+                OnPropertyChanged(nameof(GameMessage));
             }
         }
 
@@ -35,43 +38,53 @@ namespace MorabarabaV2
         {
             board = new Board();
             board.CreateEmptyMills();
+            isPlacing = true;
+            placeNum = 0;
+            playerID = 0;
+            GameMessage = "Placing : Player 1";
         }
 
         #region Phase 1 (Placing and Killing Cows
 
         // Place cows on board (Phase 1)
-        private void placeCows(int playerID = 0)
+
+        private void placeCow()
         {
-            int i = 0;
-            while (i < 24)
+
+            if(placeNum < 24)
             {
+
                 board.updateMills(playerID);
 
-                GameMessage = "Where do you want to place a cow?";
-                int input = board.converToBoardPos(Console.ReadLine());
-                while (input == -1)
+                int input = board.converToBoardPos(currentInput);
+                if(input == -1)
                 {
                     GameMessage = "Incorrect input!";
-                    input = board.converToBoardPos(Console.ReadLine());
+                    return;
                 }
                 if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
                 {
                     GameMessage = "Cannot place there!";
-                    continue;
+                    return;
                 }
 
-                board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), i, playerID);
-
-                board.getCurrentMills(playerID);
-
-                if (board.areNewMills(playerID))
+                else
                 {
-                    board.killCow(playerID);
-                }
+                    board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), placeNum, playerID);
 
-                playerID = board.switchPlayer(playerID);
-                i++;
+                    board.getCurrentMills(playerID);
+
+                    if (board.areNewMills(playerID))
+                    {
+                        board.killCow(playerID);
+                    }
+
+                    playerID = board.switchPlayer(playerID);
+                    GameMessage = $"Player {playerID} : Placing";
+                    placeNum++;
+                }
             }
+            else isPlacing = false;
         }
 
         #endregion
@@ -105,20 +118,12 @@ namespace MorabarabaV2
 
         #endregion
 
-        // Main Loop
-         private void gameLoop()
+    // Preform action depending on state of program
+    public void preformAction()
         {
-
-            //Keep looping the game unless told not to 
-            while (true)
+            if (isPlacing)
             {
-                // Phase 1 (Place and kill Cows
-                placeCows();
-
-                // Phase 2 (Move and kill Cows
-                moveCows();
-
-                break; // Just to pause while editing
+                placeCow();
             }
         }
     }
