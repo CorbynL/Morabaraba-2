@@ -75,22 +75,28 @@ namespace MorabarabaV2
         // Place cows on board (Phase 1)
         static private void placeCows(int playerID = 0)
         {
+
             int i = 0;
             while(i < 24)
             {
-                board.updateMills(playerID);
+                // Set colour acording to player
+                if (i % 2 == 0)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                else
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                board.drawboard();
 
+                board.updateMills(playerID);
+          
                 printCenter("Where do you want to place a cow?\n");
                 int input = board.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
-                    board.drawboard();
                     printCenter("Incorrect input!\n");
                     input = board.converToBoardPos(Console.ReadLine());
                 }
                 if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
                 {
-                    board.drawboard();
                     printCenter("Cannot place there!\n");
                     continue;
                 } 
@@ -105,20 +111,29 @@ namespace MorabarabaV2
                 }
 
                 playerID = board.switchPlayer(playerID);
-                board.drawboard();
+                
                 i = i + 1;
             }
         }
-        
+
         #endregion
 
-        
+        #region Phase 2 (Move Cows)
+
+        static void moveCows()
+        {
+            //Console
+
+        }
+
+        #endregion
+
 
         // Main Loop
         static void startLoop()
         {
             startUpPrompt();
-            board.drawboard();
+            //board.drawboard();
 
             //Keep looping the game unless told not to 
             while (true)
@@ -126,7 +141,8 @@ namespace MorabarabaV2
                 // Phase 1 (Place and kill Cows
                 placeCows();
 
-
+                // Phase 2 (Move and kill Cows
+                moveCows();
 
 
 
