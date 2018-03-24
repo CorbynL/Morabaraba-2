@@ -20,6 +20,8 @@ namespace MorabarabaV2
 
         static void startUpPrompt()
         {
+            Console.SetWindowPosition(0,0);
+            Console.SetWindowSize(Console.WindowWidth, 60);
             Console.ForegroundColor = ConsoleColor.Green;
 
             printCenter("   *                                                        ");
@@ -124,13 +126,14 @@ namespace MorabarabaV2
         {
             //Console
 
+
         }
 
         #endregion
 
 
         // Main Loop
-        static void startLoop()
+        static void gameLoop()
         {
             startUpPrompt();
             //board.drawboard();
@@ -155,8 +158,7 @@ namespace MorabarabaV2
         static void Main(string[] args)
         {
             board = new Board();
-            Console.SetWindowSize(Console.WindowWidth, 50);
-            startLoop();
+            gameLoop();
 
         }
 
