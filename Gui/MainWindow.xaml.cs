@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MorabarabaV2;
 
 namespace Gui
 {
@@ -20,9 +21,19 @@ namespace Gui
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GameSession _gameSession;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _gameSession = new GameSession();
+            DataContext = _gameSession;
+        }
+
+        private void onClick_Input(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
