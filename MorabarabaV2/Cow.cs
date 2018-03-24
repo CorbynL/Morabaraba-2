@@ -6,12 +6,49 @@ using System.Threading.Tasks;
 
 namespace MorabarabaV2
 { 
-    public class Cow
+    public class Cow : BaseNotificationClass
     {
-        public int Position { get; set; }
-        public char UserId { get; set; }
-        public int CowNumber { get; set; }
-        public int Id { get; set; }
+        private int _position;
+        private char _userId;
+        private int _cowNumber;
+        private int _Id;
+
+        public int Position
+        {
+            get { return _position; }
+            set
+            {
+                _position = value;
+                OnPropertyChanged(nameof(Position));
+            }
+        }
+        public char UserId
+        {
+            get { return _userId; }
+            set
+            {
+                _userId = value;
+                OnPropertyChanged(nameof(UserId));
+            }
+        }
+        public int CowNumber
+        {
+            get { return _cowNumber; }
+            set
+            {
+                _cowNumber = value;
+                OnPropertyChanged(nameof(CowNumber));
+            }
+        }
+        public int Id
+        {
+            get { return _Id; }
+            set
+            {
+                _Id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+        }
 
         public Cow(int Position = -1, char UserId = ' ', int CowNumber = -1, int Id = -1)
         {
