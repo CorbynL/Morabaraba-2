@@ -11,10 +11,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Background="Crimson">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Place"/>
+            <TextBox Grid.Column="1" Text="input here"/>
+            <TextBlock Grid.Column= "2" Text="game messages here"/>
+
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="Crimson">
 
             <Grid.RowDefinitions>
             <RowDefinition/>
