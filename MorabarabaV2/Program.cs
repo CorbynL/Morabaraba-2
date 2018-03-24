@@ -70,6 +70,14 @@ namespace MorabarabaV2
             Console.ReadKey();
         }
 
+        static void switchcolours()
+        {
+            if (Console.ForegroundColor == ConsoleColor.Blue || Console.ForegroundColor == ConsoleColor.Green)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+                Console.ForegroundColor = ConsoleColor.Blue;
+        }
+
         #endregion
         
 
@@ -79,13 +87,11 @@ namespace MorabarabaV2
         {
 
             int i = 0;
-            while(i < 24)
+            while(i < 2)
             {
                 // Set colour acording to player
-                if (i % 2 == 0)
-                    Console.ForegroundColor = ConsoleColor.Red;
-                else
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                switchcolours();
+
                 board.drawboard();
 
                 board.updateMills(playerID);
@@ -124,7 +130,34 @@ namespace MorabarabaV2
 
         static void moveCows()
         {
-            //Console
+            switchcolours();
+
+            board.drawboard();
+
+
+            bool canMove = true;
+            int i = 0; // Start with player 1
+
+            while(canMove)
+            {
+                bool validInput = false;
+                int pos = -1;
+                while (!validInput)   // Check if a valid input has been recieved
+                {
+                    printCenter("Please select a cow to move\n");
+
+                    pos = board.converToBoardPos(Console.ReadLine());
+
+                    if (pos != -1 && board.Cows[pos].Id == i % 2)
+                    {
+                        validInput = true;
+                    }
+                    else
+                        printCenter("Not your Cow!\n");
+                }
+            }
+
+            
 
 
         }
@@ -136,7 +169,6 @@ namespace MorabarabaV2
         static void gameLoop()
         {
             startUpPrompt();
-            //board.drawboard();
 
             //Keep looping the game unless told not to 
             while (true)
