@@ -6,11 +6,30 @@ using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
-    public class Mill
+    public class Mill : BaseNotificationClass
     {
-        public int[] Positions;
-        public bool isNew { get; set; }
-        public int Id { get; set; }
+        private bool _isNew;
+        private int _id;
+
+        public int[] Positions { get; set; }
+        public bool isNew
+        {
+            get { return _isNew; }
+            set
+            {
+                _isNew = value;
+                OnPropertyChanged(nameof(isNew));
+            }
+        }
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+        }
 
         public Mill(int[] Positions, int Id = -1)
         {
