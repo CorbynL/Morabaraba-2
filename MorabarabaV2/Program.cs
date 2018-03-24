@@ -6,7 +6,7 @@ namespace MorabarabaV2
     {
 
         #region The Global variables!!!
-        public static Board gameBoard;
+        public static Board board;
         
         #endregion
 
@@ -71,65 +71,48 @@ namespace MorabarabaV2
         }
 
         #endregion
-
         
-
-        #region player functions
-        private static char getPlayerChar(int playerID)
-        {
-            if (playerID == 0) { return 'R'; }
-            else return 'B';
-        }
-        private static int switchPlayer(int playerID)
-        {
-            if (playerID == 0) { return 1; }
-            else return 0;
-        }
-
-        #endregion
-
 
 
         #region Cow List functions
         // Place cows on board (Phase 1)
-        static private void placeCows(int playerID)
+        static private void placeCows(int playerID = 0)
         {
             int i = 0;
             while(i < 24)
             {
-                gameBoard.updateMills(playerID);
+                board.updateMills(playerID);
 
                 Console.WriteLine("Where do you want to place a cow?");
-                int input = gameBoard.converToBoardPos(Console.ReadLine());
+                int input = board.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
-                    gameBoard.drawboard();
+                    board.drawboard();
                     Console.WriteLine("Incorrect input!");
-                    input = gameBoard.converToBoardPos(Console.ReadLine());
+                    input = board.converToBoardPos(Console.ReadLine());
                 }
-                if (!(gameBoard.Cows[input].Id == -1) || gameBoard.Cows[input].Id == switchPlayer(playerID))
+                if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
                 {
-                    gameBoard.drawboard();
+                    board.drawboard();
                     Console.WriteLine("Cannot place there!");
                     continue;
                 } 
 
-                gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
+                board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), i, playerID);
 
-                gameBoard.getCurrentMills(playerID);
+                board.getCurrentMills(playerID);
 
-                if (gameBoard.areNewMills(playerID))
+                if (board.areNewMills(playerID))
                 {
-                    gameBoard.killCow(playerID);
+                    board.killCow(playerID);
                 }
 
-                playerID = switchPlayer(playerID);
-                gameBoard.drawboard();
+                playerID = board.switchPlayer(playerID);
+                board.drawboard();
                 i = i + 1;
             }
         }
-
-    
+        
         #endregion
 
         
@@ -138,12 +121,18 @@ namespace MorabarabaV2
         static void startLoop()
         {
             startUpPrompt();
-            gameBoard.drawboard();
+            board.drawboard();
+
             //Keep looping the game unless told not to 
             while (true)
             {
-                // 0 = player 1
-                placeCows(0);
+                // Phase 1 (Place and kill Cows
+                placeCows();
+
+
+
+
+
                 break; // Just to pause while editing
             }
         }
@@ -152,7 +141,7 @@ namespace MorabarabaV2
 
         static void Main(string[] args)
         {
-            gameBoard = new Board();
+            board = new Board();
             Console.SetWindowSize(Console.WindowWidth, 50);
             startLoop();
 

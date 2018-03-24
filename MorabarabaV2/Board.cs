@@ -170,7 +170,6 @@ namespace MorabarabaV2
 
         #endregion
 
-
         #region input functions
         // Get Board coordinate from user input
         public int converToBoardPos(string input)
@@ -206,6 +205,22 @@ namespace MorabarabaV2
         }
 
         #endregion
+
+
+        #region player functions
+        public char getPlayerChar(int playerID)
+        {
+            if (playerID == 0) { return 'R'; }
+            else return 'B';
+        }
+        public int switchPlayer(int playerID)
+        {
+            if (playerID == 0) { return 1; }
+            else return 0;
+        }
+
+        #endregion
+
 
     }
 }
