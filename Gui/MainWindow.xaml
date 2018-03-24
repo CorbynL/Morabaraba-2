@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Game" Height="768" Width="1024"
+        FontSize="20pt"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="600"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Background="Crimson">
+
+            <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="1" TextAlignment="Center" />
+            <TextBlock Grid.Column="2" Grid.Row="0" Text="2" TextAlignment="Center" />
+            <TextBlock Grid.Column="3" Grid.Row="0" Text="3" TextAlignment="Center" />
+            <TextBlock Grid.Column="4" Grid.Row="0" Text="4" TextAlignment="Center" />
+            <TextBlock Grid.Column="5" Grid.Row="0" Text="5" TextAlignment="Center" />
+            <TextBlock Grid.Column="6" Grid.Row="0" Text="6" TextAlignment="Center" />
+            <TextBlock Grid.Column="7" Grid.Row="0" Text="7" TextAlignment="Center" />
+            
+            
+            <TextBlock Grid.Row="1" Text="A" TextAlignment="Center" />
+            <TextBlock Grid.Row="2" Text="B" TextAlignment="Center" />
+            <TextBlock Grid.Row="3" Text="C" TextAlignment="Center" />
+            <TextBlock Grid.Row="4" Text="D" TextAlignment="Center" />
+            <TextBlock Grid.Row="5" Text="E" TextAlignment="Center" />
+            <TextBlock Grid.Row="6" Text="F" TextAlignment="Center" />
+            <TextBlock Grid.Row="7" Text="G" TextAlignment="Center" />
+
+        </Grid>
     </Grid>
 </Window>
