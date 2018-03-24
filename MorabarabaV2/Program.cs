@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
@@ -76,55 +72,57 @@ namespace MorabarabaV2
 
         #endregion
 
-    #region input functions
-        // Get Board coordinate from user input
+        #region input functions
+            // Get Board coordinate from user input
         static private int converToBoardPos(string input)
-    {
-        switch (input)
         {
-            case "a1": return 0;
-            case "a4": return 1;
-            case "a7": return 2;
-            case "b2": return 3;
-            case "b4": return 4;
-            case "b6": return 5;
-            case "c3": return 6;
-            case "c4": return 7;
-            case "c5": return 8;
-            case "d1": return 9;
-            case "d2": return 10;
-            case "d3": return 11;
-            case "d5": return 12;
-            case "d6": return 13;
-            case "d7": return 14;
-            case "e3": return 15;
-            case "e4": return 16;
-            case "e5": return 17;
-            case "f2": return 18;
-            case "f4": return 19;
-            case "f6": return 20;
-            case "g1": return 21;
-            case "g4": return 22;
-            case "g7": return 23;
-            default: return -1;
+            switch (input)
+            {
+                case "a1": return 0;
+                case "a4": return 1;
+                case "a7": return 2;
+                case "b2": return 3;
+                case "b4": return 4;
+                case "b6": return 5;
+                case "c3": return 6;
+                case "c4": return 7;
+                case "c5": return 8;
+                case "d1": return 9;
+                case "d2": return 10;
+                case "d3": return 11;
+                case "d5": return 12;
+                case "d6": return 13;
+                case "d7": return 14;
+                case "e3": return 15;
+                case "e4": return 16;
+                case "e5": return 17;
+                case "f2": return 18;
+                case "f4": return 19;
+                case "f6": return 20;
+                case "g1": return 21;
+                case "g4": return 22;
+                case "g7": return 23;
+                default: return -1;
+            }
         }
-    }
 
-    #endregion
+        #endregion
+
         #region player functions
         private static char getPlayerChar(int playerID)
         {
             if (playerID == 0) { return 'R'; }
             else return 'B';
         }
-    private static int switchPlayer(int playerID)
+        private static int switchPlayer(int playerID)
         {
             if (playerID == 0) { return 1; }
             else return 0;
         }
 
-    #endregion
-    #region Cow List functions
+        #endregion
+
+        #region Cow List functions
         // Place cows on board (Phase 1)
         static private void placeCows(int playerID)
         {
@@ -165,11 +163,11 @@ namespace MorabarabaV2
 
     
         static private bool canKill(int position, int playerID)
-    {
+        {
             if (gameBoard.Cows[position].Id == playerID
                 || gameBoard.Cows[position].Id == -1) { return false; }
             return true;
-    }
+        }
 
         static private void killCow(int playerID)
         {
@@ -185,61 +183,61 @@ namespace MorabarabaV2
             gameBoard.Cows[input].Id = -1;
 
         }
-    #endregion
-
-    #region Mill functions
-
-    static private void updateMills(int playerID)
-    {
-        foreach(Mill mill in gameBoard.Mills)
-        {
-            if(mill.Id == playerID 
-                && mill.isNew) { mill.isNew = false; }
-        }
-    }
-
-static private bool areNewMills(int playerID)
-    {
-        foreach(Mill mill in gameBoard.Mills)
-        {
-            if(mill.Id == playerID && mill.isNew) { return true; }
-        }
-        return false;
-    }
-
-static private bool areInMill(int[] cows, int playerID)
-    {
-        return gameBoard.Cows[cows[0]].Id == playerID
-            && gameBoard.Cows[cows[1]].Id == playerID
-            && gameBoard.Cows[cows[2]].Id == playerID;
-    }
-
-static private void getCurrentMills(int playerID)
-    {
-        foreach(Mill mill in gameBoard.Mills)
-        {
-            if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
-            {
-                mill.isNew = true;
-                mill.Id = playerID;
-            }
-        }
-    }
         #endregion
 
-    // Main Loop
-    static void startLoop()
-    {
-        startUpPrompt();
-        gameBoard.drawboard();
-        //Keep looping the game unless told not to 
-        while (true)
+        #region Mill functions
+
+        static private void updateMills(int playerID)
         {
-            // 0 = player 1
-            placeCows(0);
-            break; // Just to pause while editing
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if(mill.Id == playerID 
+                    && mill.isNew) { mill.isNew = false; }
+            }
         }
-    }
+
+        static private bool areNewMills(int playerID)
+        {
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if(mill.Id == playerID && mill.isNew) { return true; }
+            }
+            return false;
+        }
+
+        static private bool areInMill(int[] cows, int playerID)
+        {
+            return gameBoard.Cows[cows[0]].Id == playerID
+                && gameBoard.Cows[cows[1]].Id == playerID
+                && gameBoard.Cows[cows[2]].Id == playerID;
+        }
+
+        static private void getCurrentMills(int playerID)
+        {
+            foreach(Mill mill in gameBoard.Mills)
+            {
+                if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
+                {
+                    mill.isNew = true;
+                    mill.Id = playerID;
+                }
+            }
+        }
+            #endregion
+
+        // Main Loop
+        static void startLoop()
+        {
+            startUpPrompt();
+            gameBoard.drawboard();
+            //Keep looping the game unless told not to 
+            while (true)
+            {
+                // 0 = player 1
+                placeCows(0);
+                break; // Just to pause while editing
+            }
+        }
 
         #region Main Function
 
