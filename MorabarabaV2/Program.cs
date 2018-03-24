@@ -150,7 +150,7 @@ namespace MorabarabaV2
 
                 getCurrentMills(playerID);
 
-                if (areNewMills(playerID))
+                if (gameBoard.areNewMills(playerID))
                 {
                     killCow(playerID);
                 }
@@ -189,14 +189,7 @@ namespace MorabarabaV2
 
 
 
-        static private bool areNewMills(int playerID)
-        {
-            foreach(Mill mill in gameBoard.Mills)
-            {
-                if(mill.Id == playerID && mill.isNew) { return true; }
-            }
-            return false;
-        }
+        
 
         static private bool areInMill(int[] cows, int playerID)
         {
