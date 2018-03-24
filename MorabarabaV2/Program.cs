@@ -5,67 +5,65 @@ namespace MorabarabaV2
     public class Program
     {
 
-        #region The Global variables!!!
-        public static Board board;
-        
-        #endregion
+        private static Board board;
 
 
         #region Writing to the screen
 
-        static void printCenterLine(string line)
+        // Print in the middle of the console
+        static void printCenter(string line)
         {
             Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
             Console.WriteLine(line);
-
+            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
         }
 
         static void startUpPrompt()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
-            printCenterLine("   *                                                        ");
-            printCenterLine(" (  `                       )                      )        ");
-            printCenterLine(" )\\))(        (       )  ( /(     )  (       )  ( /(     )  ");
-            printCenterLine("((_)()\\   (   )(   ( /(  )\\()) ( /(  )(   ( /(  )\\()) ( /(  ");
-            printCenterLine("(_()((_)  )\\ (()\\  )(_))((_)\\  )(_))(()\\  )(_))((_)\\  )(_)) ");
-            printCenterLine("|  \\/  | ((_) ((_)((_)_ | |(_)((_)_  ((_)((_)_ | |(_)((_)_  ");
-            printCenterLine("| |\\/| |/ _ \\| '_|/ _` || '_ \\/ _` || '_|/ _` || '_ \\/ _` | ");
-            printCenterLine("|_|  |_|\\___/|_|  \\__,_||_.__/\\__,_||_|  \\__,_||_.__/\\__,_| ");
-            Console.WriteLine("\n\n\n(");
-            printCenterLine(" ------------------- Let the Games Begin! ------------------- ");
+            printCenter("   *                                                        ");
+            printCenter(" (  `                       )                      )        ");
+            printCenter(" )\\))(        (       )  ( /(     )  (       )  ( /(     )  ");
+            printCenter("((_)()\\   (   )(   ( /(  )\\()) ( /(  )(   ( /(  )\\()) ( /(  ");
+            printCenter("(_()((_)  )\\ (()\\  )(_))((_)\\  )(_))(()\\  )(_))((_)\\  )(_)) ");
+            printCenter("|  \\/  | ((_) ((_)((_)_ | |(_)((_)_  ((_)((_)_ | |(_)((_)_  ");
+            printCenter("| |\\/| |/ _ \\| '_|/ _` || '_ \\/ _` || '_|/ _` || '_ \\/ _` | ");
+            printCenter("|_|  |_|\\___/|_|  \\__,_||_.__/\\__,_||_|  \\__,_||_.__/\\__,_| ");
+            Console.WriteLine("\n\n\n");
+            printCenter(" ------------------- Let the Games Begin! ------------------- ");
             Console.WriteLine("\n\n");
-            printCenterLine(" ---- [ Rules ] ---- ");
+            printCenter(" ---- [ Rules ] ---- ");
             Console.WriteLine("");
-            printCenterLine("1. Morabaraba consists of a board with pieces which we refer to as 'cows'.");
-            printCenterLine("Each player starts with 12 cows and the game consists of 3 phases:");
-            printCenterLine("Placing, Moving and Flying.\n");
-            printCenterLine("i. Placing - Place one of your 12 cows you start with at a board-position.");
-            printCenterLine("ii. Moving - Once you have placed your 12 cows, move your cow to any empty");
-            printCenterLine("position neighbouring your cow.");
-            printCenterLine("iii. Flying - When you have 3 cows left, you can then move your cow to any");
-            printCenterLine("empty position on the board you feel like.\n");
+            printCenter("1. Morabaraba consists of a board with pieces which we refer to as 'cows'.");
+            printCenter("Each player starts with 12 cows and the game consists of 3 phases:");
+            printCenter("Placing, Moving and Flying.\n");
+            printCenter("i. Placing - Place one of your 12 cows you start with at a board-position.");
+            printCenter("ii. Moving - Once you have placed your 12 cows, move your cow to any empty");
+            printCenter("position neighbouring your cow.");
+            printCenter("iii. Flying - When you have 3 cows left, you can then move your cow to any");
+            printCenter("empty position on the board you feel like.\n");
             Console.WriteLine("");
-            printCenterLine("2. You can eliminate your opponent's cows using mills.\n");
-            printCenterLine(" A mill is when you get 3");
-            printCenterLine("of your cows in a row (including straight diagonals).\n");
-            printCenterLine("When formed, you will be asked");
-            printCenterLine("which of your opponents cows you would like to kill. Enter their");
-            printCenterLine("their board-position and");
-            printCenterLine("*poof* free Beef-Wellington for dinner. There are some\n");
-            printCenterLine("rules to mills, such as:\n");
-            printCenterLine("i. You can only form the same mill with the same cows\n");
-            printCenterLine("after 2 of your turns has passed.");
-            printCenterLine("ii. If you form a mill, you cannot kill cows that are in a\n");
-            printCenterLine("mill already i.e. they are safe.");
-            printCenterLine("iii. If you form a mill and all of your opponent's cows are in\n");
-            printCenterLine("in mills, then you may kill any of cow.\n");
+            printCenter("2. You can eliminate your opponent's cows using mills.\n");
+            printCenter(" A mill is when you get 3");
+            printCenter("of your cows in a row (including straight diagonals).\n");
+            printCenter("When formed, you will be asked");
+            printCenter("which of your opponents cows you would like to kill. Enter their");
+            printCenter("their board-position and");
+            printCenter("*poof* free Beef-Wellington for dinner. There are some\n");
+            printCenter("rules to mills, such as:\n");
+            printCenter("i. You can only form the same mill with the same cows\n");
+            printCenter("after 2 of your turns has passed.");
+            printCenter("ii. If you form a mill, you cannot kill cows that are in a\n");
+            printCenter("mill already i.e. they are safe.");
+            printCenter("iii. If you form a mill and all of your opponent's cows are in\n");
+            printCenter("in mills, then you may kill any of cow.\n");
             Console.WriteLine("");
-            printCenterLine("3. WIN - When your opponent has only 2 cows left, then you win!\n");
+            printCenter("3. WIN - When your opponent has only 2 cows left, then you win!\n");
             Console.WriteLine("");
-            printCenterLine("4. If no vaild moves are available to any player, the game ends in a DRAW.\n");
+            printCenter("4. If no vaild moves are available to any player, the game ends in a DRAW.\n");
             Console.WriteLine("");
-            printCenterLine(" --- [ Press Enter to Begin ] --- ");
+            printCenter(" --- [ Press Enter to Begin ] --- ");
 
             Console.ReadKey();
         }
@@ -73,8 +71,7 @@ namespace MorabarabaV2
         #endregion
         
 
-
-        #region Cow List functions
+        #region Phase 1 (Placing and Killing Cows
         // Place cows on board (Phase 1)
         static private void placeCows(int playerID = 0)
         {
@@ -83,18 +80,18 @@ namespace MorabarabaV2
             {
                 board.updateMills(playerID);
 
-                Console.WriteLine("Where do you want to place a cow?");
+                printCenter("Where do you want to place a cow?\n");
                 int input = board.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
                     board.drawboard();
-                    Console.WriteLine("Incorrect input!");
+                    printCenter("Incorrect input!\n");
                     input = board.converToBoardPos(Console.ReadLine());
                 }
                 if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
                 {
                     board.drawboard();
-                    Console.WriteLine("Cannot place there!");
+                    printCenter("Cannot place there!\n");
                     continue;
                 } 
 
