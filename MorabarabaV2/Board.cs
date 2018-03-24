@@ -100,6 +100,8 @@ namespace MorabarabaV2
         }
 
 
+        #region Mill functions
+
         public void updateMills(int playerID)
         {
             foreach (Mill mill in Mills)
@@ -117,6 +119,15 @@ namespace MorabarabaV2
             }
             return false;
         }
+
+        public bool areInMill(int[] cows, int playerID)
+        {
+            return Cows[cows[0]].Id == playerID
+                && Cows[cows[1]].Id == playerID
+                && Cows[cows[2]].Id == playerID;
+        }
+
+        #endregion
 
     }
 }

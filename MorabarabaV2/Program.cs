@@ -185,31 +185,19 @@ namespace MorabarabaV2
         }
         #endregion
 
-        #region Mill functions
-
-
-
         
-
-        static private bool areInMill(int[] cows, int playerID)
-        {
-            return gameBoard.Cows[cows[0]].Id == playerID
-                && gameBoard.Cows[cows[1]].Id == playerID
-                && gameBoard.Cows[cows[2]].Id == playerID;
-        }
 
         static private void getCurrentMills(int playerID)
         {
             foreach(Mill mill in gameBoard.Mills)
             {
-                if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
+                if (gameBoard.areInMill(mill.Positions, playerID) && mill.Id != playerID)
                 {
                     mill.isNew = true;
                     mill.Id = playerID;
                 }
             }
         }
-            #endregion
 
         // Main Loop
         static void startLoop()
