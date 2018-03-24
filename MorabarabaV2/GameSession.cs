@@ -46,6 +46,12 @@ namespace MorabarabaV2
 
         #region Phase 1 (Placing and Killing Cows
 
+        private string getplayerImageSource(int player)
+        {
+            if (player == 0) return "/Gui;component/Images/redCow.png";
+            else return "/Gui;component/Images/blueCow.png";
+        }
+
         // Place cows on board (Phase 1)
 
         private void placeCow()
@@ -70,7 +76,10 @@ namespace MorabarabaV2
 
                 else
                 {
-                    board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), placeNum, playerID);
+                    board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), placeNum, playerID, getplayerImageSource(playerID));
+
+                    //This shouldnt be needed :/ Dont know what the problem is
+                    OnPropertyChanged(nameof(board));
 
                     board.getCurrentMills(playerID);
 

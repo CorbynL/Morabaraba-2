@@ -12,6 +12,7 @@ namespace MorabarabaV2
         private char _userId;
         private int _cowNumber;
         private int _Id;
+        private string _imageName;
 
         public int Position
         {
@@ -40,6 +41,15 @@ namespace MorabarabaV2
                 OnPropertyChanged(nameof(CowNumber));
             }
         }
+        public string ImageName
+        {
+            get { return _imageName; }
+            set
+            {
+                _imageName = value;
+                OnPropertyChanged(nameof(ImageName));
+            }
+        }
         public int Id
         {
             get { return _Id; }
@@ -50,13 +60,13 @@ namespace MorabarabaV2
             }
         }
 
-        public Cow(int Position = -1, char UserId = ' ', int CowNumber = -1, int Id = -1)
+        public Cow(int Position = -1, char UserId = ' ', int CowNumber = -1, int Id = -1, string ImageName = "/Gui;component/Images/deadCow.png")
         {
             this.Position = Position;
             this.UserId = UserId;
             this.CowNumber = CowNumber;
             this.Id = Id;
-
+            this.ImageName = ImageName;
         }
 
 
