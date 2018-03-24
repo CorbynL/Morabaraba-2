@@ -148,7 +148,7 @@ namespace MorabarabaV2
 
                 gameBoard.Cows[input] = new Cow(input, getPlayerChar(playerID), i, playerID);
 
-                getCurrentMills(playerID);
+                gameBoard.getCurrentMills(playerID);
 
                 if (gameBoard.areNewMills(playerID))
                 {
@@ -186,18 +186,6 @@ namespace MorabarabaV2
         #endregion
 
         
-
-        static private void getCurrentMills(int playerID)
-        {
-            foreach(Mill mill in gameBoard.Mills)
-            {
-                if (gameBoard.areInMill(mill.Positions, playerID) && mill.Id != playerID)
-                {
-                    mill.isNew = true;
-                    mill.Id = playerID;
-                }
-            }
-        }
 
         // Main Loop
         static void startLoop()

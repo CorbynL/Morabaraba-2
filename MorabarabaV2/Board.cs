@@ -127,6 +127,20 @@ namespace MorabarabaV2
                 && Cows[cows[2]].Id == playerID;
         }
 
+
+
+        public void getCurrentMills(int playerID)
+        {
+            foreach (Mill mill in Mills)
+            {
+                if (areInMill(mill.Positions, playerID) && mill.Id != playerID)
+                {
+                    mill.isNew = true;
+                    mill.Id = playerID;
+                }
+            }
+        }
+
         #endregion
 
     }
