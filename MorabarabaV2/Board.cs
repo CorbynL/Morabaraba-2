@@ -143,13 +143,69 @@ namespace MorabarabaV2
 
         #endregion
 
+        #region Cow Functions
+
         public bool canKill(int position, int playerID)
         {
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
             return true;
         }
+        
 
+        public void killCow(int playerID)
+        {
+            Console.WriteLine("Chose a cow to kill");
+
+            int input = converToBoardPos(Console.ReadLine().ToLower());
+            while (!canKill(input, playerID))
+            {
+                Console.WriteLine("Cannot kill that!");
+                input = converToBoardPos(Console.ReadLine().ToLower());
+            }
+            Cows[input].UserId = ' ';
+            Cows[input].Id = -1;
+
+        }
+
+        #endregion
+
+
+        #region input functions
+        // Get Board coordinate from user input
+        public int converToBoardPos(string input)
+        {
+            switch (input.ToLower())
+            {
+                case "a1": return 0;
+                case "a4": return 1;
+                case "a7": return 2;
+                case "b2": return 3;
+                case "b4": return 4;
+                case "b6": return 5;
+                case "c3": return 6;
+                case "c4": return 7;
+                case "c5": return 8;
+                case "d1": return 9;
+                case "d2": return 10;
+                case "d3": return 11;
+                case "d5": return 12;
+                case "d6": return 13;
+                case "d7": return 14;
+                case "e3": return 15;
+                case "e4": return 16;
+                case "e5": return 17;
+                case "f2": return 18;
+                case "f4": return 19;
+                case "f6": return 20;
+                case "g1": return 21;
+                case "g4": return 22;
+                case "g7": return 23;
+                default: return -1;
+            }
+        }
+
+        #endregion
 
     }
 }

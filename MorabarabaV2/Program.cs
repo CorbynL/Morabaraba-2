@@ -72,41 +72,7 @@ namespace MorabarabaV2
 
         #endregion
 
-        #region input functions
-            // Get Board coordinate from user input
-        static private int converToBoardPos(string input)
-        {
-            switch (input)
-            {
-                case "a1": return 0;
-                case "a4": return 1;
-                case "a7": return 2;
-                case "b2": return 3;
-                case "b4": return 4;
-                case "b6": return 5;
-                case "c3": return 6;
-                case "c4": return 7;
-                case "c5": return 8;
-                case "d1": return 9;
-                case "d2": return 10;
-                case "d3": return 11;
-                case "d5": return 12;
-                case "d6": return 13;
-                case "d7": return 14;
-                case "e3": return 15;
-                case "e4": return 16;
-                case "e5": return 17;
-                case "f2": return 18;
-                case "f4": return 19;
-                case "f6": return 20;
-                case "g1": return 21;
-                case "g4": return 22;
-                case "g7": return 23;
-                default: return -1;
-            }
-        }
-
-        #endregion
+        
 
         #region player functions
         private static char getPlayerChar(int playerID)
@@ -134,12 +100,12 @@ namespace MorabarabaV2
                 gameBoard.updateMills(playerID);
 
                 Console.WriteLine("Where do you want to place a cow?");
-                int input = converToBoardPos(Console.ReadLine().ToLower());
+                int input = gameBoard.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
                     gameBoard.drawboard();
                     Console.WriteLine("Incorrect input!");
-                    input = converToBoardPos(Console.ReadLine().ToLower());
+                    input = gameBoard.converToBoardPos(Console.ReadLine());
                 }
                 if (!(gameBoard.Cows[input].Id == -1) || gameBoard.Cows[input].Id == switchPlayer(playerID))
                 {
@@ -154,7 +120,7 @@ namespace MorabarabaV2
 
                 if (gameBoard.areNewMills(playerID))
                 {
-                    killCow(playerID);
+                    gameBoard.killCow(playerID);
                 }
 
                 playerID = switchPlayer(playerID);
@@ -164,22 +130,6 @@ namespace MorabarabaV2
         }
 
     
-        
-
-        static private void killCow(int playerID)
-        {
-            Console.WriteLine("Chose a cow to kill");
-
-            int input = converToBoardPos(Console.ReadLine().ToLower());
-            while(!gameBoard.canKill(input, playerID))
-            {
-                Console.WriteLine("Cannot kill that!");
-                input = converToBoardPos(Console.ReadLine().ToLower());
-            }
-            gameBoard.Cows[input].UserId = ' ';
-            gameBoard.Cows[input].Id = -1;
-
-        }
         #endregion
 
         
