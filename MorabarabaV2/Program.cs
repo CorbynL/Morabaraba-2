@@ -190,7 +190,7 @@ namespace MorabarabaV2
         // Main Loop
         static void gameLoop()
         {
-            //startUpPrompt();
+            startUpPrompt();
 
             //Keep looping the game unless told not to 
             while (true)
