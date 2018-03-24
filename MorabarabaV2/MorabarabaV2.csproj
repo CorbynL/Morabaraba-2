@@ -48,6 +48,7 @@
     <Compile Include="BaseNotificationClass.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Cow.cs" />
+    <Compile Include="GameSession.cs" />
     <Compile Include="Mill.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
