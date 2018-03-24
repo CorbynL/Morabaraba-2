@@ -5,8 +5,8 @@ namespace MorabarabaV2
     public class Program
     {
 
+        // Main Game Board 
         private static Board board;
-
 
 
         #region Writing to the screen
@@ -98,7 +98,6 @@ namespace MorabarabaV2
 
         #endregion
         
-
         #region Phase 1 (Placing and Killing Cows
         // Place cows on board (Phase 1)
         static void placeCows(int playerID = 0)
@@ -186,6 +185,7 @@ namespace MorabarabaV2
 
         #endregion
 
+        #region Game Loop and Main Function
 
         // Main Loop
         static void gameLoop()
@@ -207,7 +207,6 @@ namespace MorabarabaV2
             }
         }
 
-        #region Main Function
 
         static void Main(string[] args)
         {
