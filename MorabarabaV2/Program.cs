@@ -8,6 +8,7 @@ namespace MorabarabaV2
         private static Board board;
 
 
+
         #region Writing to the screen
 
         // Print in the middle of the console
@@ -78,16 +79,33 @@ namespace MorabarabaV2
                 Console.ForegroundColor = ConsoleColor.Blue;
         }
 
+        static void playerWinsStartAgain(int player)
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n");
+            printCenter(String.Format("Player {0} wins!!!\n\n",player));
+            printCenter("Type 'Yes' to start a new game or push enter to exit");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "yes")
+            {
+                board.newCows();
+                gameLoop();
+
+            }
+            else
+                Environment.Exit(0);
+        }
+
         #endregion
         
 
         #region Phase 1 (Placing and Killing Cows
         // Place cows on board (Phase 1)
-        static private void placeCows(int playerID = 0)
+        static void placeCows(int playerID = 0)
         {
 
             int i = 0;
-            while(i < 2)
+            while(i < 24)
             {
                 // Set colour acording to player
                 switchcolours();
@@ -119,8 +137,16 @@ namespace MorabarabaV2
                 }
 
                 playerID = board.switchPlayer(playerID);
-                
-                i = i + 1;
+
+
+                if (i == 23)    // If we're on the last cow placement and the board is full, player 1 wins and the game ends
+                    if (board.isFullBoard())
+                    {
+                        playerWinsStartAgain(1);
+                        gameLoop();                     // If player wants to start again
+                    }
+
+                i++;
             }
         }
 
@@ -156,10 +182,6 @@ namespace MorabarabaV2
                         printCenter("Not your Cow!\n");
                 }
             }
-
-            
-
-
         }
 
         #endregion
@@ -174,8 +196,8 @@ namespace MorabarabaV2
             while (true)
             {
                 // Phase 1 (Place and kill Cows
-                placeCows();
-
+                placeCows();                 
+                
                 // Phase 2 (Move and kill Cows
                 moveCows();
 

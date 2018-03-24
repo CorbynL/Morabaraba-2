@@ -14,13 +14,18 @@ namespace MorabarabaV2
 
         public Board()
         {
-            Cows = new Cow[24];           
-
-            for (int i = 0; i < 24; i++)            
-                Cows[i] = new Cow(i,' ',-1,-1);
+            newCows();
 
             Mills = CreateEmptyMills();
-        }        
+        }
+        
+        public void newCows()       //Used for restarting the game
+        {
+            Cows = new Cow[24];
+
+            for (int i = 0; i < 24; i++)
+                Cows[i] = new Cow(i, ' ', -1, -1);
+        }
 
 
         #region Console Functions
@@ -168,6 +173,18 @@ namespace MorabarabaV2
             Cows[input].UserId = ' ';
             Cows[input].Id = -1;
 
+        }
+
+        public bool isFullBoard()
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                if (Cows[i].Id == -1)
+                    return false;
+                else if (i == 23)
+                    return true;
+            }
+            return false; // Should never be reached
         }
 
         #endregion
