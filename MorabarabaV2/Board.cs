@@ -181,7 +181,6 @@ namespace MorabarabaV2
 
         public void killCow(int playerID)
         {
-            Console.WriteLine("Chose a cow to kill");
 
             int input = converToBoardPos(Console.ReadLine().ToLower());
             while (!canKill(input, playerID))

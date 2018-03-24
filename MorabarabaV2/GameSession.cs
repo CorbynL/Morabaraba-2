@@ -11,6 +11,7 @@ namespace MorabarabaV2
         private Board _board;
         private string _gameMessage;
         private bool isPlacing;
+        private bool isKilling;
         private int playerID;
         private int placeNum;
 
@@ -39,6 +40,7 @@ namespace MorabarabaV2
             board = new Board();
             board.CreateEmptyMills();
             isPlacing = true;
+            isKilling = false;
             placeNum = 0;
             playerID = 0;
             GameMessage = "Placing : Player 1";
@@ -85,7 +87,10 @@ namespace MorabarabaV2
 
                     if (board.areNewMills(playerID))
                     {
-                        board.killCow(playerID);
+                        isKilling = true;
+                        isPlacing = false;
+                        GameMessage = $"player {playerID} : Killing";
+                        return;
                     }
 
                     playerID = board.switchPlayer(playerID);
@@ -99,6 +104,32 @@ namespace MorabarabaV2
         #endregion
 
         #region Phase 2 (Move Cows)
+
+        private void killCow()
+        {
+
+            int input = board.converToBoardPos(currentInput);
+
+            if (!board.canKill(input, playerID))
+            {
+                GameMessage = "Can't kill that one!";
+            }
+
+            else
+            {
+
+                board.Cows[input].UserId = ' ';
+                board.Cows[input].Id = -1;
+                board.Cows[input].ImageName = "/Gui;component/Images/deadCow.png";
+                isKilling = false;
+                if(placeNum < 23)
+                {
+                    isPlacing = true;
+                    playerID = board.switchPlayer(playerID);
+                    GameMessage = $"player {playerID}: Placing";
+                }
+            }
+        }
 
         private void moveCows()
         {
@@ -133,6 +164,11 @@ namespace MorabarabaV2
             if (isPlacing)
             {
                 placeCow();
+            }
+            
+            else if (isKilling)
+            {
+                killCow();
             }
         }
     }
