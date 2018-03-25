@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Place" Click="onClick_Input"/>
-            <TextBox Grid.Column="1" Text="input here" Name="inBox"/>
+            <TextBox Grid.Column="1" Text="" Name="inBox"/>
             <TextBlock Grid.Column= "2"  Text="{Binding GameMessage}"/>
 
         </Grid>

@@ -8,6 +8,13 @@ namespace MorabarabaV2
 {
     public class GameSession : BaseNotificationClass
     {
+        private enum State 
+        {
+            Placing,
+            Killing,
+            Moving
+        }
+        private State currentState;
         private Board _board;
         private string _gameMessage;
         private bool isPlacing;
@@ -39,11 +46,10 @@ namespace MorabarabaV2
         {
             board = new Board();
             board.CreateEmptyMills();
-            isPlacing = true;
-            isKilling = false;
+            currentState = State.Placing;
             placeNum = 0;
             playerID = 0;
-            GameMessage = "Placing : Player 1";
+            GameMessage = "Placing : Player 0";
         }
 
         #region Phase 1 (Placing and Killing Cows
@@ -87,8 +93,7 @@ namespace MorabarabaV2
 
                     if (board.areNewMills(playerID))
                     {
-                        isKilling = true;
-                        isPlacing = false;
+                        currentState = State.Killing;
                         GameMessage = $"player {playerID} : Killing";
                         return;
                     }
@@ -98,7 +103,7 @@ namespace MorabarabaV2
                     placeNum++;
                 }
             }
-            else isPlacing = false;
+            else currentState = State.Moving;
         }
 
         #endregion
@@ -121,13 +126,16 @@ namespace MorabarabaV2
                 board.Cows[input].UserId = ' ';
                 board.Cows[input].Id = -1;
                 board.Cows[input].ImageName = "/Gui;component/Images/deadCow.png";
-                isKilling = false;
-                if(placeNum < 23)
+                if (placeNum < 23)
                 {
-                    isPlacing = true;
+                    currentState = State.Placing;
                     playerID = board.switchPlayer(playerID);
                     GameMessage = $"player {playerID}: Placing";
                 }
+                //
+                // TODO: Check for end game
+                //
+                else currentState = State.Moving;
             }
         }
 
@@ -161,14 +169,21 @@ namespace MorabarabaV2
     // Preform action depending on state of program
     public void preformAction()
         {
-            if (isPlacing)
+            switch (currentState)
             {
-                placeCow();
-            }
-            
-            else if (isKilling)
-            {
-                killCow();
+                case State.Placing:
+                    placeCow();
+                    break;
+
+                case State.Killing:
+                    killCow();
+                    break;
+
+                case State.Moving:
+                    //
+                    // TODO
+                    //
+                    break;
             }
         }
     }
