@@ -30,6 +30,8 @@ namespace MorabarabaV2
             }
         }
 
+        
+        private readonly Cow deadCow = new Cow();
 
         public Board()
         {
@@ -43,7 +45,7 @@ namespace MorabarabaV2
             Cows = new Cow[24];
 
             for (int i = 0; i < 24; i++)
-                Cows[i] = new Cow(i, ' ', -1, -1, "/Gui;component/Images/deadCow.png");               
+                Cows[i] = new Cow(i, ' ', -1, -1);               
         }
 
 
@@ -134,6 +136,11 @@ namespace MorabarabaV2
             return false;
         }
 
+        public bool canPlace(int input, int playerID)
+        {
+            return !(Cows[input].Id == -1) || Cows[input].Id == switchPlayer(playerID);
+        }
+
         public bool areInMill(int[] cows, int playerID)
         {
             return Cows[cows[0]].Id == playerID
@@ -179,18 +186,19 @@ namespace MorabarabaV2
         }
         
 
-        public void killCow(int playerID)
+        public void killCow(int input)
         {
+            Cow newCow = deadCow;
+            newCow.Position = input;
 
-            int input = converToBoardPos(Console.ReadLine().ToLower());
-            while (!canKill(input, playerID))
-            {
-                Console.WriteLine("Cannot kill that!");
-                input = converToBoardPos(Console.ReadLine().ToLower());
-            }
-            Cows[input].UserId = ' ';
-            Cows[input].Id = -1;
+            Cows[input] = newCow;
 
+        }
+
+        public void placeCow(int playerID, int input, int cowNumber)
+        {
+            Cow newCow = new Cow(input, getPlayerChar(playerID), cowNumber, playerID);
+            Cows[input] = newCow;
         }
 
         public bool isFullBoard()

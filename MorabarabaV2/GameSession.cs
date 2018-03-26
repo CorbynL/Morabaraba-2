@@ -52,12 +52,6 @@ namespace MorabarabaV2
 
         #region Phase 1 (Placing and Killing Cows
 
-        private string getplayerImageSource(int player)
-        {
-            if (player == 0) return "/Gui;component/Images/redCow.png";
-            else return "/Gui;component/Images/blueCow.png";
-        }
-
         // Place cows on board (Phase 1)
 
         private void placeCow()
@@ -74,7 +68,7 @@ namespace MorabarabaV2
                     GameMessage = "Incorrect input!";
                     return;
                 }
-                if (!(board.Cows[input].Id == -1) || board.Cows[input].Id == board.switchPlayer(playerID))
+                if (board.canPlace(input,playerID))
                 {
                     GameMessage = "Cannot place there!";
                     return;
@@ -82,9 +76,7 @@ namespace MorabarabaV2
 
                 else
                 {
-                    board.Cows[input] = new Cow(input, board.getPlayerChar(playerID), placeNum, playerID, getplayerImageSource(playerID));
-
-                    //This shouldnt be needed :/ Dont know what the problem is
+                    board.placeCow(playerID,input, placeNum);
                     OnPropertyChanged(nameof(board));
 
                     board.getCurrentMills(playerID);
@@ -120,10 +112,9 @@ namespace MorabarabaV2
 
             else
             {
+                board.killCow(input);
+                OnPropertyChanged(nameof(board));
 
-                board.Cows[input].UserId = ' ';
-                board.Cows[input].Id = -1;
-                board.Cows[input].ImageName = "/Gui;component/Images/deadCow.png";
                 if (placeNum < 23)
                 {
                     currentState = State.Placing;
