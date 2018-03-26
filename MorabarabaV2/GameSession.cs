@@ -17,8 +17,6 @@ namespace MorabarabaV2
         private State currentState;
         private Board _board;
         private string _gameMessage;
-        private bool isPlacing;
-        private bool isKilling;
         private int playerID;
         private int placeNum;
 
