@@ -8,28 +8,13 @@ namespace MorabarabaV2
 {
     public class GameSession : BaseNotificationClass
     {
-        private enum State 
-        {
-            Placing,
-            Killing,
-            Moving
-        }
         private State currentState;
-        private Board _board;
         private string _gameMessage;
         private int playerID;
         private int placeNum;
 
         public string currentInput { get; set; }
-        public Board board
-        {
-            get { return _board; }
-            set
-            {
-                _board = value;
-                OnPropertyChanged(nameof(board));
-            }
-        }
+        public Board board { get; set; }
         public string GameMessage
         {
             get { return _gameMessage; }
@@ -48,6 +33,13 @@ namespace MorabarabaV2
             placeNum = 0;
             playerID = 0;
             GameMessage = "Placing : Player 0";
+        }
+
+        private enum State
+        {
+            Placing,
+            Killing,
+            Moving
         }
 
         #region Phase 1 (Placing and Killing Cows

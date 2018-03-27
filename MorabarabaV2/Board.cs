@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
-    public class Board
+    public class Board : BaseNotificationClass
     {
-        public Cow[] Cows {get; set;}
+        private Cow[] _cows;
+
+        public Cow[] Cows
+        {
+            get { return _cows; }
+            set
+            {
+                _cows = value;
+                OnPropertyChanged(nameof(Cows));
+            }
+        }
         public Mill[] Mills { get; set; }
        
         private readonly Cow deadCow = new Cow();
