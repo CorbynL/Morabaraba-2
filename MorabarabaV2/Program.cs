@@ -111,12 +111,12 @@ namespace MorabarabaV2
     }
 
     #endregion
-        #region player functions
-        private static char getPlayerChar(int playerID)
-        {
-            if (playerID == 0) { return 'R'; }
-            else return 'B';
-        }
+    #region player functions
+    private static char getPlayerChar(int playerID)
+    {
+        if (playerID == 0) { return 'R'; }
+        else return 'B';
+    }
     private static int switchPlayer(int playerID)
         {
             if (playerID == 0) { return 1; }
