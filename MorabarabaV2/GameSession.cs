@@ -155,8 +155,9 @@ namespace MorabarabaV2
             while (canMove)
             {
                 bool validInput = false;
-                int pos = -1;
-                while (!validInput)   // Check if a valid input has been recieved
+                int pos = -1, newpos = -1;
+
+                while (!validInput)   // Check if a valid input has been recieved for cow choice
                 {
                     GameMessage = "Please select a cow to move";
 
@@ -169,14 +170,32 @@ namespace MorabarabaV2
                     else
                         GameMessage = "Not your Cow!";
                 }
+
+                validInput = false;
                 
+                while (!validInput) // Check if a valid input has been received for cow move
+                {
+                    GameMessage = "Now select where you want to move";
+
+                    newpos = board.converToBoardPos(Console.ReadLine());
+
+                    if (newpos != -1 && board.Cows[newpos].Id == -1)
+                    {
+                        validInput = true;
+                    }
+                    else
+                        GameMessage = "Invalid move!";
+                }
+
+                //
+                // TODO: Get move functions from console version
             }
         }
 
         #endregion
 
     // Preform action depending on state of program
-    public void preformAction()
+    public void performAction()
         {
             switch (currentState)
             {
