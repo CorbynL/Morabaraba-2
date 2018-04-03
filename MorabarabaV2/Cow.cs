@@ -28,7 +28,7 @@ namespace MorabarabaV2
         {
             if (Id == 0) ImageName = "/Gui;component/Images/redCow.png";
             else if (Id == 1) ImageName = "/Gui;component/Images/blueCow.png";
-            else ImageName = "/Gui;component/Images/deadCow.png";
+            else ImageName = "/Gui;component/Images/emptyCow.png";
         }
 
     }

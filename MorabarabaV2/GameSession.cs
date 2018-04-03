@@ -39,7 +39,8 @@ namespace MorabarabaV2
         {
             Placing,
             Killing,
-            Moving
+            Moving,
+            End
         }
 
         #region Phase 1 (Placing and Killing Cows
@@ -68,7 +69,7 @@ namespace MorabarabaV2
 
                 else
                 {
-                    board.placeCow(playerID,input, placeNum);
+                    board.placeCow(playerID, input, placeNum);
                     OnPropertyChanged(nameof(board));
 
                     board.getCurrentMills(playerID);
@@ -113,10 +114,36 @@ namespace MorabarabaV2
                     playerID = board.switchPlayer(playerID);
                     GameMessage = $"player {playerID}: Placing";
                 }
-                //
-                // TODO: Check for end game
-                //
+                
+                // Check win condition
+                if (ownedCows(playerID) <= 2)
+                {
+                    currentState = State.End;
+                    playerID = board.switchPlayer(playerID);
+                    GameMessage = $"Player {playerID} wins!";
+                }                
+
                 else currentState = State.Moving;
+            }
+        }
+
+        //For Board.cs: Get number of cows owned by player
+
+        private int ownedCows (int playerID)
+        {
+            if (playerID < -1 || playerID > 1)
+                return -1;
+
+            else
+            {
+                int count = 0;
+                for (int i = 0; i < board.Cows.Length; i++)
+                {
+                    if (board.Cows[i].Id == playerID)
+                        count++;
+                }
+
+                return count;
             }
         }
 
@@ -142,6 +169,7 @@ namespace MorabarabaV2
                     else
                         GameMessage = "Not your Cow!";
                 }
+                
             }
         }
 
@@ -161,6 +189,12 @@ namespace MorabarabaV2
                     break;
 
                 case State.Moving:
+                    //
+                    // TODO
+                    //
+                    break;
+
+                case State.End:
                     //
                     // TODO
                     //

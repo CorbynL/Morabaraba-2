@@ -9,13 +9,13 @@ namespace MorabarabaV2
     public class Program
     {
 
-        #region The Global variables!!!
+    #region The Global variables!!!
         static private Board gameBoard;
         
         #endregion
 
 
-        #region Writing to the screen
+    #region Writing to the screen
 
         static void printCenterLine(string line)
         {
