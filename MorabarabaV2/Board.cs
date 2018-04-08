@@ -63,7 +63,8 @@ namespace MorabarabaV2
             printCenter("     |   | /     |     \\ |   |    ");
             printCenter(String.Format(" F    |  ({0})-----({1})-----({2})  |    ", Cows[18].UserId, Cows[19].UserId, Cows[20].UserId));
             printCenter("     | /         |         \\ |    ");
-            printCenter(String.Format(" G    ({0})---------({1})---------({2})    \n", Cows[21].UserId, Cows[22].UserId, Cows[23].UserId));
+            printCenter(String.Format("  G   ({0})---------({1})---------({2})    \n", Cows[21].UserId, Cows[22].UserId, Cows[23].UserId));
+            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
         }
 
         #endregion
@@ -162,12 +163,12 @@ namespace MorabarabaV2
 
         public void killCow(int playerID)
         {
-            Console.WriteLine("Chose a cow to kill");
+            printCenter("Chose a cow to kill");
 
             int input = converToBoardPos(Console.ReadLine().ToLower());
             while (!canKill(input, playerID))
             {
-                Console.WriteLine("Cannot kill that!");
+                printCenter("Cannot kill that!");
                 input = converToBoardPos(Console.ReadLine().ToLower());
             }
             Cows[input].UserId = ' ';
