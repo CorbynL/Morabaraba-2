@@ -155,6 +155,8 @@ namespace MorabarabaV2
 
         public bool canKill(int position, int playerID)
         {
+            if (position < 0)
+                return false;
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
             return true;
