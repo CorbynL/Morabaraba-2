@@ -73,10 +73,10 @@ namespace MorabarabaV2
 
         static void switchcolours()
         {
-            if (Console.ForegroundColor == ConsoleColor.Blue || Console.ForegroundColor == ConsoleColor.Green)
+            if (Console.ForegroundColor == ConsoleColor.Cyan || Console.ForegroundColor == ConsoleColor.Green)
                 Console.ForegroundColor = ConsoleColor.Red;
             else
-                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.Cyan;
         }
 
         static void playerWinsStartAgain(int player)
