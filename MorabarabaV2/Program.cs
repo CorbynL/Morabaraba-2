@@ -102,18 +102,22 @@ namespace MorabarabaV2
         // Place cows on board (Phase 1)
         static void placeCows(int playerID = 0)
         {
-
             int i = 0;
             while(i < 24)
             {
                 // Set colour acording to player
                 switchcolours();
 
+                // Draw the board
                 board.drawboard();
 
+                // Uplate all mills for the player
                 board.updateMills(playerID);
           
+
                 printCenter(String.Format("Where do you want to place a cow? (You have {0} cows left to place)\n", (25 -i) / 2 ));
+
+                // Get a valid input from the current player
                 int input = board.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
@@ -137,8 +141,8 @@ namespace MorabarabaV2
 
                 playerID = board.switchPlayer(playerID);
 
-
-                if (i == 23)    // If we're on the last cow placement and the board is full, player 1 wins and the game ends
+                // If we're on the last cow placement and the board is full, player 1 wins and the game ends
+                if (i == 23)    
                     if (board.isFullBoard())
                     {
                         playerWinsStartAgain(1);

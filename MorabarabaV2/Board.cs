@@ -124,7 +124,6 @@ namespace MorabarabaV2
         }
 
 
-
         public void getCurrentMills(int playerID)
         {
             foreach (Mill mill in Mills)
@@ -153,9 +152,36 @@ namespace MorabarabaV2
             else return null;
         }
 
+        public bool InMill(int position, int playerID )
+        {
+            foreach(Mill a in Mills)
+            {
+                if (a.Positions[0] == position && a.Id != playerID && a.Id != -1 ||
+                    a.Positions[1] == position && a.Id != playerID && a.Id != -1 ||
+                    a.Positions[2] == position && a.Id != playerID && a.Id != -1)
+                { return true; }
+            }
+            return false;
+        }
+
+        public bool OnlyMill(int position, int playerID)
+        {
+            int count = 0;
+            playerID = switchPlayer(playerID);
+            foreach (Mill a in Mills)
+            {
+                if (a.Id == playerID)
+                    count++;
+            }
+
+            return count <= 1;
+        }
+
         public bool canKill(int position, int playerID)
         {
             if (position < 0)
+                return false;
+            if (InMill(position, playerID) && !OnlyMill(position, playerID))
                 return false;
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
@@ -239,6 +265,7 @@ namespace MorabarabaV2
             if (playerID == 0) { return 1; }
             else return 0;
         }
+      
 
         #endregion
 
