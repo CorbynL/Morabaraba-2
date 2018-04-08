@@ -164,7 +164,6 @@ namespace MorabarabaV2
             return false;
         }
 
-
         public bool OnlyMill(int position, int playerID)
         {
             int count = 0;
