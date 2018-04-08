@@ -113,7 +113,7 @@ namespace MorabarabaV2
 
                 board.updateMills(playerID);
           
-                printCenter("Where do you want to place a cow?\n");
+                printCenter(String.Format("Where do you want to place a cow? (You have {0} cows left to place)\n", (25 -i) / 2 ));
                 int input = board.converToBoardPos(Console.ReadLine());
                 while (input == -1)
                 {
