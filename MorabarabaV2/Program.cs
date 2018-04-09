@@ -207,6 +207,12 @@ namespace MorabarabaV2
                 }
                 board.Cows[newPos] = board.Cows[pos];
                 board.Cows[pos] = new Cow();
+
+                // Update all
+                switchcolours();
+                board.drawboard();
+                board.updateMills(player%2);
+                board.getCurrentMills(player % 2);
                 player++;                                    // change player  
 
             }
