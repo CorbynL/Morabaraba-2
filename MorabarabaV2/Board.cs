@@ -176,12 +176,22 @@ namespace MorabarabaV2
             return count;
         }
 
+        public bool cowNotInMill(int playerId)      // Returns true if there is a cow which is not in a mill
+        {
+            foreach(Cow a in Cows)
+            {
+                if(a.Id == playerId && !InMill(a.Position, playerId))
+                    return true;
+            }
+            return false;
+        }
+
 
         public bool canKill(int position, int playerID)
         {
             if (position < 0)
                 return false;
-            if (InMill(position, playerID) && numMills(position, playerID) != 1//!OnlyMill(position, playerID))
+            if (InMill(position, playerID) && !cowNotInMill(playerID)) 
                 return false;
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
