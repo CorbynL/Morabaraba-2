@@ -100,10 +100,16 @@ namespace MorabarabaV2
         
         #region Phase 1 (Placing and Killing Cows
         // Place cows on board (Phase 1)
+
+        /// <summary>
+        /// Bugs to fix: 
+        ///     Player can't kill a cow if all opositions cows are in mills and there are more than one mill
+        /// </summary>
+        /// <param name="playerID"></param>
         static void placeCows(int playerID = 0)
         {
             int i = 0;
-            while(i < 24)
+            while(i < 4)            //############################## CHANGE BACK TO 24 ##############################
             {
                 // Set colour acording to player
                 switchcolours();
@@ -151,21 +157,19 @@ namespace MorabarabaV2
 
                 i++;
             }
+            switchcolours();
+
+            board.drawboard();
         }
 
         #endregion
 
         #region Phase 2 (Move Cows)
-
+        //Phase 2: Moving the cows
         static void moveCows()
         {
-            switchcolours();
-
-            board.drawboard();
-
-
             bool canMove = true;
-            int i = 0; // Start with player 1
+            int player = 0; // Start with player 1
 
             while(canMove)
             {
@@ -177,13 +181,34 @@ namespace MorabarabaV2
 
                     pos = board.converToBoardPos(Console.ReadLine());
 
-                    if (pos != -1 && board.Cows[pos].Id == i % 2)
+                    if (pos != -1 && board.Cows[pos].Id == player % 2)
                     {
                         validInput = true;
                     }
                     else
                         printCenter("Not your Cow!\n");
                 }
+                validInput = false;
+
+                // A valid input has been recieved
+                int newPos =-1;
+                while (!validInput)   // Check if a valid input has been recieved
+                {
+                    printCenter("Where do you want to move your cow?\n");
+
+                    newPos = board.converToBoardPos(Console.ReadLine()); ;
+
+                    if (pos != -1 && board.Cows[newPos].Id == -1)
+                    {
+                        validInput = true;
+                    }
+                    else
+                        printCenter("Can't move there!\n");
+                }
+                board.Cows[newPos] = board.Cows[pos];
+                board.Cows[pos] = new Cow();
+                player++;                                    // change player  
+
             }
         }
 
