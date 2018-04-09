@@ -164,23 +164,15 @@ namespace MorabarabaV2
         }
         
 
-        public void killCow(int playerID)
+        //needed?
+        public bool killCow(int position, int playerID)
         {
-            //printCenter("Choose a cow to kill");
+            if (!canKill(position, playerID))
+                return false;
 
-            int input = converToBoardPos(Console.ReadLine().ToLower());
-            while (!canKill(input, playerID))
-            {
-                //printCenter("Cannot kill that!");
-                input = converToBoardPos(Console.ReadLine().ToLower());
-            }
-            Cows[input].UserId = ' ';
-            Cows[input].Id = -1;
+            Cows[position] = new Cow(position, ' ', -1, -1);
 
-            Cow newCow = deadCow;
-            newCow.Position = input;
-
-            Cows[input] = newCow;
+            return true;
 
         }
 

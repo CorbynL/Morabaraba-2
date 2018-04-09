@@ -32,7 +32,7 @@ namespace MorabarabaV2
             currentState = State.Placing;
             placeNum = 0;
             playerID = 0;
-            GameMessage = "Placing : Player 0";
+            GameMessage = "Player 1 : Placing";
         }
 
         private enum State
@@ -77,12 +77,12 @@ namespace MorabarabaV2
                     if (board.areNewMills(playerID))
                     {
                         currentState = State.Killing;
-                        GameMessage = $"Player {playerID} : Killing";
+                        GameMessage = $"Player {playerID + 1} : Killing";
                         return;
                     }
 
                     playerID = board.switchPlayer(playerID);
-                    GameMessage = $"Player {playerID} : Placing";
+                    GameMessage = $"Player {playerID + 1} : Placing";
                     placeNum++;
                 }
             }
@@ -90,7 +90,7 @@ namespace MorabarabaV2
             {
                 currentState = State.Moving;
                 playerID = board.switchPlayer(playerID);
-                GameMessage = $"Player {playerID}: Moving";
+                GameMessage = $"Player {playerID + 1}: Moving";
             }
         }
 
@@ -110,30 +110,30 @@ namespace MorabarabaV2
 
             else
             {
-                board.killCow(input);
+                board.Cows[input] = new Cow(input, ' ', -1, -1); // Put empty cow at crime scene
                 OnPropertyChanged(nameof(board));
 
                 if (placeNum < 23)
                 {
                     currentState = State.Placing;
                     playerID = board.switchPlayer(playerID);
-                    GameMessage = $"Player {playerID}: Placing";
+                    GameMessage = $"Player {playerID + 1}: Placing";
+                    placeNum++;
                 }
-                
+                else
+                {
+                    currentState = State.Moving;
+                    playerID = board.switchPlayer(playerID);
+                    GameMessage = $"Player {playerID + 1}: Moving";
+                }
+
                 // Check win condition
                 if (ownedCows(playerID) <= 2 && currentState == State.Moving)
                 {
                     currentState = State.End;
                     playerID = board.switchPlayer(playerID);
-                    GameMessage = $"Player {playerID} wins!";
-                }
-
-                else
-                {
-                    currentState = State.Moving;
-                    playerID = board.switchPlayer(playerID);
-                    GameMessage = $"Player {playerID}: Moving";
-                }
+                    GameMessage = $"Player {playerID + 1} wins!";
+                }                
             }
         }
 
@@ -195,12 +195,12 @@ namespace MorabarabaV2
                 if (board.areNewMills(playerID))
                 {
                     currentState = State.Killing;
-                    GameMessage = $"Player {playerID} : Killing";
+                    GameMessage = $"Player {playerID + 1} : Killing";
                     return;
                 }
 
                 playerID = board.switchPlayer(playerID);
-                GameMessage = $"Player {playerID} : Moving";
+                GameMessage = $"Player {playerID + 1} : Moving";
 
             }           
           
