@@ -7,7 +7,12 @@ namespace MorabarabaV2
 
         // Main Game Board 
         private static Board board;
-
+        
+        /// <summary>
+        /// Bugs to fix: 
+        ///     Player can't kill a cow if all opositions cows are in mills and there are more than one mill
+        /// </summary>
+        
 
         #region Writing to the screen
 
@@ -100,12 +105,6 @@ namespace MorabarabaV2
 
         #region Phase 1 (Placing and Killing Cows)
         // Place cows on board (Phase 1)
-
-        /// <summary>
-        /// Bugs to fix: 
-        ///     Player can't kill a cow if all opositions cows are in mills and there are more than one mill
-        /// </summary>
-        /// <param name="playerID"></param>
         static void placeCows(int playerID = 0)
         {
             int i = 0;
@@ -212,7 +211,7 @@ namespace MorabarabaV2
                         printCenter("Where do you want to move your cow?\n");
                         newPos = board.converToBoardPos(Console.ReadLine());                                        // Get possition
 
-                        if (pos != -1 && board.Cows[newPos].Id == -1 && board.isValidMove(pos, newPos))             // Check if Valid position
+                        if (pos != -1 && board.Cows[newPos].Id == -1 && (board.isValidMove(pos, newPos) || board.numCowsLeft(player%2) == 3))   // Check if Valid position and check if there are flying cows
                             validInput = true;
                         else
                             printCenter("Can't move there!\n");
