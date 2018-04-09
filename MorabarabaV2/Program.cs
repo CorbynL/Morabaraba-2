@@ -8,11 +8,6 @@ namespace MorabarabaV2
         // Main Game Board 
         private static Board board;
         
-        /// <summary>
-        /// Bugs to fix: 
-        ///     Player can't kill a cow if all opositions cows are in mills and there are more than one mill
-        /// </summary>
-        
 
         #region Writing to the screen
 
@@ -191,12 +186,13 @@ namespace MorabarabaV2
                     // Select a valid position to move the cow
                     int newPos =-1;
                     validInput = false;
-                    while (!validInput)                                                                             // Coninue getting an input until a valid one is given
+                    while (!validInput)                                             // Coninue getting an input until a valid one is given
                     {
                         printCenter("Where do you want to move your cow?\n");
-                        newPos = board.converToBoardPos(Console.ReadLine());                                        // Get possition
+                        newPos = board.converToBoardPos(Console.ReadLine());        // Get possition
 
-                        if (pos != -1 && board.Cows[newPos].Id == -1 && (board.isValidMove(pos, newPos) || board.numCowsLeft(player%2) == 3))   // Check if Valid position and check if there are flying cows
+                        // Check if Valid position and check if there are flying cows
+                        if (pos != -1 && board.Cows[newPos].Id == -1 && (board.isValidMove(pos, newPos) || board.numCowsLeft(player%2) == 3))   
                             validInput = true;
                         else
                             printCenter("Can't move there!\n");
@@ -210,12 +206,10 @@ namespace MorabarabaV2
                     board.drawboard();
                     board.updateMills(player%2);
                     board.getCurrentMills(player % 2);
-                    player++;                                    // Change player 
-
+                    player++;                           // Change player 
                 }
             }
         }
-
         #endregion
 
         #region Game Loop and Main Function
@@ -224,7 +218,6 @@ namespace MorabarabaV2
         static void gameLoop()
         {
             startUpPrompt();
-
             //Keep looping the game unless told not to 
             while (true)
             {
@@ -235,7 +228,6 @@ namespace MorabarabaV2
                 moveCows();
             }
         }
-
 
         static void Main(string[] args)
         {
