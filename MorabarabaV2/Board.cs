@@ -18,8 +18,9 @@ namespace MorabarabaV2
 
             Mills = CreateEmptyMills();
         }
-        
-        public void newCows()       //Used for restarting the game
+
+        // Used for restarting the game, blanks all the cows on the board
+        public void newCows()       
         {
             Cows = new Cow[24];
 
@@ -152,6 +153,7 @@ namespace MorabarabaV2
             else return null;
         }
 
+        // Checks if a cow is in a mill
         public bool InMill(int position, int playerID )
         {
             foreach(Mill a in Mills)
@@ -164,6 +166,7 @@ namespace MorabarabaV2
             return false;
         }
 
+        // Returns the number of mills that are formed for a given player
         public int numMills(int position, int playerID)
         {
             int count = 0;
@@ -176,7 +179,8 @@ namespace MorabarabaV2
             return count;
         }
 
-        public bool cowNotInMill(int playerId)      // Returns true if there is a cow which is not in a mill
+        // Returns true if there is a cow which is not in a mill
+        public bool cowNotInMill(int playerId)      
         {
             foreach(Cow a in Cows)
             {
@@ -186,8 +190,8 @@ namespace MorabarabaV2
             return false;
         }
 
-
-        public bool canKill(int position, int playerID)
+        // Checks if a cow can be killed based on if it's in a mill or if there is a cow there
+        public bool canKill(int position, int playerID)         
         {
             if (position < 0)
                 return false;
@@ -197,24 +201,23 @@ namespace MorabarabaV2
                 || Cows[position].Id == -1) { return false; }
             return true;
         }
-        
 
-        public void killCow(int playerID)
+        // Gets a VALID possition to kill a cow, checks if the cow can be killed and then removes the cows info
+        public void killCow(int playerID)                       
         {
             printCenter("Chose a cow to kill");
-
+            // Get user input
             int input = converToBoardPos(Console.ReadLine().ToLower());
             while (!canKill(input, playerID))
             {
                 printCenter("Cannot kill that!");
                 input = converToBoardPos(Console.ReadLine().ToLower());
             }
-            Cows[input].UserId = ' ';
-            Cows[input].Id = -1;
-
+            Cows[input] = new Cow();
         }
 
-        public bool isFullBoard()
+        // Checks if the board if full and therefore if the game is over
+        public bool isFullBoard()                               
         {
             for (int i = 0; i < 24; i++)
             {
@@ -262,7 +265,7 @@ namespace MorabarabaV2
             }
         }
 
-        // Positions a cow can move from at a position
+        // Checks if a cow can move to a given position
         public bool isValidMove(int pos, int newPos)
         {
             switch (pos)
@@ -348,17 +351,21 @@ namespace MorabarabaV2
         #endregion
 
         #region player Functions
+
+        // Gets the character that represents a player
         public char getPlayerChar(int playerID)
         {
             if (playerID == 0) { return 'R'; }
             else return 'B';
         }
+        // Switches between player ID's
         public int switchPlayer(int playerID)
         {
             if (playerID == 0) { return 1; }
             else return 0;
         }
 
+        // Returns the number of cows that are still alive
         public int numCowsLeft(int playerID)
         {
             int count = 0;
@@ -370,7 +377,5 @@ namespace MorabarabaV2
             return count;
         }
         #endregion
-
-
     }
 }
