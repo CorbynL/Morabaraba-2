@@ -8,9 +8,10 @@ namespace MorabarabaV2
 {
     public class Mill
     {
-        public int[] Positions;
         public bool isNew { get; set; }
-        public int Id { get; set; }
+        public int Id {get; set;}
+
+        public int[] Positions { get; set; }
 
         public Mill(int[] Positions, int Id = -1)
         {

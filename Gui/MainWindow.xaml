@@ -1,0 +1,98 @@
+﻿<Window x:Class="Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gui"
+        mc:Ignorable="d"
+        Title="Game" Height="768" Width="1024"
+        FontSize="20pt"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="600"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Place" Click="onClick_Input"/>
+            <TextBox Grid.Column="1" Text="" Name="inBox"/>
+            <TextBlock Grid.Column= "2"  Text="{Binding GameMessage}"/>
+
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="Coral">
+
+            <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+            <Image Grid.Row="1" Grid.Column="1" Source="{Binding board.Cows[0].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="1" Grid.Column="4" Source="{Binding board.Cows[1].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="1" Grid.Column="7" Source="{Binding board.Cows[2].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="2" Grid.Column="2" Source="{Binding board.Cows[3].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="2" Grid.Column="4" Source="{Binding board.Cows[4].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="2" Grid.Column="6" Source="{Binding board.Cows[5].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="3" Grid.Column="3" Source="{Binding board.Cows[6].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="3" Grid.Column="4" Source="{Binding board.Cows[7].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="3" Grid.Column="5" Source="{Binding board.Cows[8].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="1" Source="{Binding board.Cows[9].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="2" Source="{Binding board.Cows[10].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="3" Source="{Binding board.Cows[11].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="5" Source="{Binding board.Cows[12].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="6" Source="{Binding board.Cows[13].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="4" Grid.Column="7" Source="{Binding board.Cows[14].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="5" Grid.Column="3" Source="{Binding board.Cows[15].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="5" Grid.Column="4" Source="{Binding board.Cows[16].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="5" Grid.Column="5" Source="{Binding board.Cows[17].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="6" Grid.Column="2" Source="{Binding board.Cows[18].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="6" Grid.Column="4" Source="{Binding board.Cows[19].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="6" Grid.Column="6" Source="{Binding board.Cows[20].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="7" Grid.Column="1" Source="{Binding board.Cows[21].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="7" Grid.Column="4" Source="{Binding board.Cows[22].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Grid.Row="7" Grid.Column="7" Source="{Binding board.Cows[23].ImageName}" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Grid.Row="0" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="3" Grid.Row="0" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="4" Grid.Row="0" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="5" Grid.Row="0" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="6" Grid.Row="0" Text="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="7" Grid.Row="0" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            
+            
+            <TextBlock Grid.Row="1" Text="A" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Text="B" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Text="C" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="4" Text="D" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="5" Text="E" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="6" Text="F" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="7" Text="G" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        </Grid>
+    </Grid>
+</Window>

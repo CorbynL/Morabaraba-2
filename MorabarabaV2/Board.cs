@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace MorabarabaV2
 {
-    public class Board
+    public class Board : BaseNotificationClass
     {
-        public Cow[] Cows;
-        public Mill[] Mills;
+        private Cow[] _cows;
 
+        public Cow[] Cows
+        {
+            get { return _cows; }
+            set
+            {
+                _cows = value;
+                OnPropertyChanged(nameof(Cows));
+            }
+        }
+        public Mill[] Mills { get; set; }
+       
+        private readonly Cow deadCow = new Cow();
 
         public Board()
         {
@@ -24,7 +35,7 @@ namespace MorabarabaV2
             Cows = new Cow[24];
 
             for (int i = 0; i < 24; i++)
-                Cows[i] = new Cow(i, ' ', -1, -1);
+                Cows[i] = new Cow(i, ' ', -1, -1);               
         }
 
 
@@ -116,6 +127,11 @@ namespace MorabarabaV2
             return false;
         }
 
+        public bool canPlace(int input, int playerID)
+        {
+            return !(Cows[input].Id == -1) || Cows[input].Id == switchPlayer(playerID);
+        }
+
         public bool areInMill(int[] cows, int playerID)
         {
             return Cows[cows[0]].Id == playerID
@@ -190,8 +206,9 @@ namespace MorabarabaV2
         }
         
 
-        public void killCow(int playerID)
+        public void killCow(int input)
         {
+<<<<<<< HEAD
             printCenter("Chose a cow to kill");
 
             int input = converToBoardPos(Console.ReadLine().ToLower());
@@ -202,7 +219,19 @@ namespace MorabarabaV2
             }
             Cows[input].UserId = ' ';
             Cows[input].Id = -1;
+=======
+            Cow newCow = deadCow;
+            newCow.Position = input;
 
+            Cows[input] = newCow;
+>>>>>>> gui
+
+        }
+
+        public void placeCow(int playerID, int input, int cowNumber)
+        {
+            Cow newCow = new Cow(input, getPlayerChar(playerID), cowNumber, playerID);
+            Cows[input] = newCow;
         }
 
         public bool isFullBoard()
