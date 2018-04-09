@@ -164,8 +164,7 @@ namespace MorabarabaV2
             return false;
         }
 
-
-        public bool OnlyMill(int position, int playerID)
+        public int numMills(int position, int playerID)
         {
             int count = 0;
             playerID = switchPlayer(playerID);
@@ -174,15 +173,15 @@ namespace MorabarabaV2
                 if (a.Id == playerID)
                     count++;
             }
-
-            return count <= 1;
+            return count;
         }
+
 
         public bool canKill(int position, int playerID)
         {
             if (position < 0)
                 return false;
-            if (InMill(position, playerID) && !OnlyMill(position, playerID))
+            if (InMill(position, playerID) && numMills(position, playerID) != 1//!OnlyMill(position, playerID))
                 return false;
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
