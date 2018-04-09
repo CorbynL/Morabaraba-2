@@ -50,7 +50,6 @@
     <Compile Include="Cow.cs" />
     <Compile Include="GameSession.cs" />
     <Compile Include="Mill.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

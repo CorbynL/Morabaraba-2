@@ -27,7 +27,7 @@ namespace Gui
         {
             _gameSession.currentInput = inBox.Text;
             inBox.Clear();
-            _gameSession.preformAction();
+            _gameSession.performAction();
 
         }
     }

@@ -36,49 +36,7 @@ namespace MorabarabaV2
 
             for (int i = 0; i < 24; i++)
                 Cows[i] = new Cow(i, ' ', -1, -1);               
-        }
-
-
-        #region Console Functions
-        private static void printCenter(string line)
-        {
-            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-            Console.WriteLine(line);
-            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
-        }
-
-        public void drawboard()  // print the board         
-        {
-            Console.Clear();
-            Console.WriteLine("");
-            printCenter(" __  __                           _                               _              ");
-            printCenter("|  \\/  |   ___      _ _   __ _   | |__    __ _      _ _   __ _   | |__    __ _   ");
-            printCenter("| |\\/| |  / _ \\    | '_| / _` |  | '_ \\  / _` |    | '_| / _` |  | '_ \\  / _` |  ");
-            printCenter("|_|__|_|  \\___/   _|_|_  \\__,_|  |_.__/  \\__,_|   _|_|_  \\__,_|  |_.__/  \\__,_|  ");
-            printCenter("_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
-            printCenter("\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
-            Console.WriteLine("");
-
-
-            printCenter("  1   2   3   4   5   6   7");
-            printCenter("");
-            printCenter(String.Format(" A   ({0})---------({1})---------({2})    ", Cows[0].UserId, Cows[1].UserId, Cows[2].UserId));
-            printCenter("     | \\         |         / |    ");
-            printCenter(String.Format(" B    |  ({0})-----({1})-----({2})  |    ", Cows[3].UserId, Cows[4].UserId, Cows[5].UserId));
-            printCenter("     |   | \\     |     / |   |    ");
-            printCenter(String.Format(" C    |   |  ({0})-({1})-({2})  |   |    ", Cows[6].UserId, Cows[7].UserId, Cows[8].UserId));
-            printCenter("     |   |   |       |   |   |    ");
-            printCenter(String.Format(" D   ({0})-({1})-({2})     ({3})-({4})-({5})    ", Cows[9].UserId, Cows[10].UserId, Cows[11].UserId, Cows[12].UserId, Cows[13].UserId, Cows[14].UserId));
-            printCenter("     |   |   |       |   |   |    ");
-            printCenter(String.Format(" E    |   |  ({0})-({1})-({2})  |   |    ", Cows[15].UserId, Cows[16].UserId, Cows[17].UserId));
-            printCenter("     |   | /     |     \\ |   |    ");
-            printCenter(String.Format(" F    |  ({0})-----({1})-----({2})  |    ", Cows[18].UserId, Cows[19].UserId, Cows[20].UserId));
-            printCenter("     | /         |         \\ |    ");
-            printCenter(String.Format("  G   ({0})---------({1})---------({2})    \n", Cows[21].UserId, Cows[22].UserId, Cows[23].UserId));
-            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
-        }
-
-        #endregion
+        }        
 
         #region Mill Functions
 
@@ -206,25 +164,23 @@ namespace MorabarabaV2
         }
         
 
-        public void killCow(int input)
+        public void killCow(int playerID)
         {
-<<<<<<< HEAD
-            printCenter("Chose a cow to kill");
+            //printCenter("Choose a cow to kill");
 
             int input = converToBoardPos(Console.ReadLine().ToLower());
             while (!canKill(input, playerID))
             {
-                printCenter("Cannot kill that!");
+                //printCenter("Cannot kill that!");
                 input = converToBoardPos(Console.ReadLine().ToLower());
             }
             Cows[input].UserId = ' ';
             Cows[input].Id = -1;
-=======
+
             Cow newCow = deadCow;
             newCow.Position = input;
 
             Cows[input] = newCow;
->>>>>>> gui
 
         }
 

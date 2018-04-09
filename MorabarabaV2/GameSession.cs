@@ -77,7 +77,7 @@ namespace MorabarabaV2
                     if (board.areNewMills(playerID))
                     {
                         currentState = State.Killing;
-                        GameMessage = $"player {playerID} : Killing";
+                        GameMessage = $"Player {playerID} : Killing";
                         return;
                     }
 
@@ -86,7 +86,12 @@ namespace MorabarabaV2
                     placeNum++;
                 }
             }
-            else currentState = State.Moving;
+            else
+            {
+                currentState = State.Moving;
+                playerID = board.switchPlayer(playerID);
+                GameMessage = $"Player {playerID}: Moving";
+            }
         }
 
         #endregion
@@ -112,18 +117,23 @@ namespace MorabarabaV2
                 {
                     currentState = State.Placing;
                     playerID = board.switchPlayer(playerID);
-                    GameMessage = $"player {playerID}: Placing";
+                    GameMessage = $"Player {playerID}: Placing";
                 }
                 
                 // Check win condition
-                if (ownedCows(playerID) <= 2)
+                if (ownedCows(playerID) <= 2 && currentState == State.Moving)
                 {
                     currentState = State.End;
                     playerID = board.switchPlayer(playerID);
                     GameMessage = $"Player {playerID} wins!";
-                }                
+                }
 
-                else currentState = State.Moving;
+                else
+                {
+                    currentState = State.Moving;
+                    playerID = board.switchPlayer(playerID);
+                    GameMessage = $"Player {playerID}: Moving";
+                }
             }
         }
 
@@ -147,49 +157,53 @@ namespace MorabarabaV2
             }
         }
 
-        private void moveCows()
+        private void moveCow()
         {
-            bool canMove = true;
-            int i = 0; // Start with player 1
+            int
+                pos = -1,
+                newPos = -1;
 
-            while (canMove)
-            {
-                bool validInput = false;
-                int pos = -1, newpos = -1;
+            if (ownedCows(playerID) >= 2)
+            {             
+                pos = board.converToBoardPos(currentInput);
 
-                while (!validInput)   // Check if a valid input has been recieved for cow choice
+                if (pos == -1 || board.Cows[pos].Id != playerID)
                 {
-                    GameMessage = "Please select a cow to move";
-
-                    pos = board.converToBoardPos(Console.ReadLine());
-
-                    if (pos != -1 && board.Cows[pos].Id == i % 2)
-                    {
-                        validInput = true;
-                    }
-                    else
-                        GameMessage = "Not your Cow!";
+                    GameMessage = "Invalid choice!";
+                    return;
                 }
 
-                validInput = false;
-                
-                while (!validInput) // Check if a valid input has been received for cow move
+                GameMessage = "Now select where you want to move";
+
+                newPos = board.converToBoardPos(currentInput);                
+
+                if (newPos == -1 || board.Cows[newPos].Id != -1 || !board.isValidMove(pos, newPos))
                 {
-                    GameMessage = "Now select where you want to move";
-
-                    newpos = board.converToBoardPos(Console.ReadLine());
-
-                    if (newpos != -1 && board.Cows[newpos].Id == -1)
-                    {
-                        validInput = true;
-                    }
-                    else
-                        GameMessage = "Invalid move!";
+                    GameMessage = "Invalid move!";
+                    return;
                 }
 
-                //
-                // TODO: Get move functions from console version
-            }
+                board.updateMills(playerID);
+
+                board.placeCow(playerID, newPos, board.Cows[pos].CowNumber); // Place cow at new position
+                board.Cows[pos] = new Cow(pos, ' ', -1, -1); // Put empty cow at original place
+
+                OnPropertyChanged(nameof(board));
+
+                board.getCurrentMills(playerID);
+
+                if (board.areNewMills(playerID))
+                {
+                    currentState = State.Killing;
+                    GameMessage = $"Player {playerID} : Killing";
+                    return;
+                }
+
+                playerID = board.switchPlayer(playerID);
+                GameMessage = $"Player {playerID} : Moving";
+
+            }           
+          
         }
 
         #endregion
@@ -208,9 +222,7 @@ namespace MorabarabaV2
                     break;
 
                 case State.Moving:
-                    //
-                    // TODO
-                    //
+                    moveCow();
                     break;
 
                 case State.End:
