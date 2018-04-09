@@ -256,172 +256,86 @@ namespace MorabarabaV2
         // Positions a cow can move from at a position
         public bool isValidMove(int pos, int newPos)
         {
-            // Pos = 0
-            if (pos == 0)
-                if (newPos == 1 || newPos == 3 || newPos == 9)
-                { return true; }
-
             switch (pos)
             {
-                // Pos 0
                 case 0:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 1 || newPos == 3 || newPos == 9){ return true; }
                     break;
-
-                // Pos 0
                 case 1:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 0 || newPos == 2 || newPos == 4) { return true; }
                     break;
-                // Pos 0
                 case 2:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 1 || newPos == 5 || newPos == 14) { return true; }
                     break;
-                // Pos 0
                 case 3:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 0 || newPos == 4 || newPos == 6 || newPos == 10) { return true; }
                     break;
-                // Pos 0
                 case 4:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 1 || newPos == 3 || newPos == 5 || newPos == 7) { return true; }
                     break;
-                // Pos 0
                 case 5:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 2 || newPos == 4 || newPos == 8 || newPos == 13) { return true; }
                     break;
-                // Pos 0
                 case 6:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 4 || newPos == 7 || newPos == 11) { return true; }
                     break;
-                // Pos 0
                 case 7:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 4 || newPos == 6 || newPos == 8) { return true; }
                     break;
-                // Pos 0
                 case 8:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 5 || newPos == 7 || newPos == 12) { return true; }
                     break;
-                // Pos 0
                 case 9:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 0 || newPos == 10 || newPos == 21) { return true; }
                     break;
-                // Pos 0
                 case 10:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 3 || newPos == 9 || newPos == 11 || newPos == 18) { return true; }
                     break;
-                // Pos 0
                 case 11:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 6 || newPos == 10 || newPos == 15) { return true; }
                     break;
-                // Pos 0
                 case 12:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 8 || newPos == 13 || newPos == 17) { return true; }
                     break;
-                // Pos 0
                 case 13:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 5 || newPos == 12 || newPos == 14 || newPos == 20) { return true; }
                     break;
-                // Pos 0
                 case 14:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 2 || newPos == 13 || newPos == 23) { return true; }
                     break;
-                // Pos 0
                 case 15:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 11 || newPos == 16 || newPos == 18) { return true; }
                     break;
-                // Pos 0
                 case 16:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 15 || newPos == 17 || newPos == 19) { return true; }
                     break;
-                // Pos 0
                 case 17:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 12 || newPos == 16 || newPos == 20) { return true; }
                     break;
-                // Pos 0
                 case 18:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 10 || newPos == 15 || newPos == 19 || newPos == 21) { return true; }
                     break;
-                // Pos 0
                 case 19:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 16 || newPos == 18 || newPos == 20 || newPos == 22) { return true; }
                     break;
-                // Pos 0
                 case 20:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 13 || newPos == 17 || newPos == 19 || newPos == 23) { return true; }
                     break;
-                // Pos 0
                 case 21:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 9 || newPos == 18 || newPos == 22) { return true; }
                     break;
-                // Pos 0
                 case 22:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 19 || newPos == 21 || newPos == 23) { return true; }
                     break;
-                // Pos 0
                 case 23:
-                    if (newPos == 1 || newPos == 3 || newPos == 9)
-                    { return true; }
+                    if (newPos == 14 || newPos == 20 || newPos == 22) { return true; }
                     break;
                 default:
                     return false;
-
             }
-                
-
-
             return false;
         }
-
-        /*match cow.Position, position with
-            | (0,1) | (0,3) | (0,9)
-            | (1,0) | (1,2) | (1,4) 
-            | (2,1) | (2,5) | (2,14)
-            | (3,0) | (3,4) | (3,6) | (3,10) 
-            | (4,1) | (4,3) | (4,5) | (4,7) 
-            | (5,2) | (5,4) | (5,8) | (5,13)
-            | (6,3) | (6,7) | (6,11) 
-            | (7,4) | (7,6) | (7,8) 
-            | (8,5) | (8,7) | (8,12) 
-            | (9,0) | (9,10)| (9,21) 
-            | (10,3) | (10,9) | (10,11) | (10,18) 
-            | (11,6) | (11,10) | (11,15) 
-            | (12,8) | (12,13) | (12,17) 
-            | (13,5) | (13,12) | (13,14) | (13,20) 
-            | (14,2) | (14,13) | (14,23) 
-            | (15,11) | (15,16) | (15,18) 
-            | (16,15) | (16,17) | (16,19) 
-            | (17,12) | (17,16) | (17,20) 
-            | (18,10) | (18,15) | (18,19) | (18,21) 
-            | (19,16) | (19,18) | (19,20) | (19,22) 
-            | (20,13) | (20,17) | (20,19) | (20,23) 
-            | (21,9) | (21,18) | (21,22) 
-            | (22,19) | (22,21) | (22,23)
-            | (23,14) | (23,20) | (23,22) -> position
-    | _ -> -1 
-    */
-
+        
         #endregion
 
         #region player Functions

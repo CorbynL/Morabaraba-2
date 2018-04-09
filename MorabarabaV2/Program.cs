@@ -97,8 +97,8 @@ namespace MorabarabaV2
         }
 
         #endregion
-        
-        #region Phase 1 (Placing and Killing Cows
+
+        #region Phase 1 (Placing and Killing Cows)
         // Place cows on board (Phase 1)
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace MorabarabaV2
 
                     newPos = board.converToBoardPos(Console.ReadLine()); ;
 
-                    if (pos != -1 && board.Cows[newPos].Id == -1)
+                    if (pos != -1 && board.Cows[newPos].Id == -1 && board.isValidMove(pos, newPos))
                     {
                         validInput = true;
                     }
