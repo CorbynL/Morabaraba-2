@@ -349,6 +349,17 @@ namespace MorabarabaV2
             if (playerID == 0) { return 1; }
             else return 0;
         }
+
+        public int numCowsLeft(int playerID)
+        {
+            int count = 0;
+            foreach(Cow a in Cows)
+            {
+                if (a.Id == playerID)
+                    count++;
+            }
+            return count;
+        }
         #endregion
 
 

@@ -109,7 +109,7 @@ namespace MorabarabaV2
         static void placeCows(int playerID = 0)
         {
             int i = 0;
-            while(i < 4)            //############################## CHANGE BACK TO 24 ##############################
+            while(i < 24)
             {
                 // Set colour acording to player
                 switchcolours();
@@ -168,53 +168,66 @@ namespace MorabarabaV2
         //Phase 2: Moving the cows
         static void moveCows()
         {
-            bool canMove = true;
             int player = 0; // Start with player 1
 
-            while(canMove)
+            // Check if game is over
+            if (board.numCowsLeft(0) == 2)
             {
-                bool validInput = false;
-                int pos = -1;
-                while (!validInput)   // Check if a valid input has been recieved
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n");
+                printCenter("Player 2 WINS!!!!");
+                printCenter("Press any key to start again...");
+            }
+            else if(board.numCowsLeft(1) == 2)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n");
+                printCenter("Player 2 WINS!!!!");
+                printCenter("Press any key to start again...");
+            }
+            else
+            {
+                bool canMove = true;
+                while (canMove)
                 {
-                    printCenter("Please select a cow to move\n");
-
-                    pos = board.converToBoardPos(Console.ReadLine());
-
-                    if (pos != -1 && board.Cows[pos].Id == player % 2)
+                    // Select a valid cow
+                    bool validInput = false;
+                    int pos = -1;
+                    while (!validInput)   // Check if a valid input has been recieved
                     {
-                        validInput = true;
+                        printCenter("Please select a cow to move\n");
+                        pos = board.converToBoardPos(Console.ReadLine());
+
+                        if (pos != -1 && board.Cows[pos].Id == player % 2)
+                            validInput = true;
+                        else
+                            printCenter("Not your Cow!\n");
                     }
-                    else
-                        printCenter("Not your Cow!\n");
-                }
-                validInput = false;
 
-                // A valid input has been recieved
-                int newPos =-1;
-                while (!validInput)   // Check if a valid input has been recieved
-                {
-                    printCenter("Where do you want to move your cow?\n");
-
-                    newPos = board.converToBoardPos(Console.ReadLine()); ;
-
-                    if (pos != -1 && board.Cows[newPos].Id == -1 && board.isValidMove(pos, newPos))
+                    // Select a valid position to move the cow
+                    int newPos =-1;
+                    validInput = false;
+                    while (!validInput)                                                                             // Coninue getting an input until a valid one is given
                     {
-                        validInput = true;
+                        printCenter("Where do you want to move your cow?\n");
+                        newPos = board.converToBoardPos(Console.ReadLine());                                        // Get possition
+
+                        if (pos != -1 && board.Cows[newPos].Id == -1 && board.isValidMove(pos, newPos))             // Check if Valid position
+                            validInput = true;
+                        else
+                            printCenter("Can't move there!\n");
                     }
-                    else
-                        printCenter("Can't move there!\n");
+                    board.Cows[newPos] = board.Cows[pos];
+                    board.Cows[pos] = new Cow();
+
+                    // Update all
+                    switchcolours();
+                    board.drawboard();
+                    board.updateMills(player%2);
+                    board.getCurrentMills(player % 2);
+                    player++;                                    // change player 
+
                 }
-                board.Cows[newPos] = board.Cows[pos];
-                board.Cows[pos] = new Cow();
-
-                // Update all
-                switchcolours();
-                board.drawboard();
-                board.updateMills(player%2);
-                board.getCurrentMills(player % 2);
-                player++;                                    // change player  
-
             }
         }
 
@@ -230,15 +243,12 @@ namespace MorabarabaV2
             //Keep looping the game unless told not to 
             while (true)
             {
-                // Phase 1 (Place and kill Cows
+                // Phase 1 (Place and kill Cows)
                 placeCows();                 
                 
-                // Phase 2 (Move and kill Cows
+                // Phase 2 (Move and kill Cows)
                 moveCows();
-
-
-
-                break; // Just to pause while editing
+                
             }
         }
 
