@@ -179,7 +179,7 @@ namespace MorabarabaV2
         {
             if (position < 0)
                 return false;
-            if (InMill(position, playerID) && !cowNotInMill(playerID))
+            if (InMill(position, playerID) && cowNotInMill(playerID))
                 return false;
             if (Cows[position].Id == playerID
                 || Cows[position].Id == -1) { return false; }
