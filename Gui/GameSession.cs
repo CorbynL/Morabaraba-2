@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Gui
 {
@@ -14,6 +17,9 @@ namespace Gui
         private int playerID;
         private int placeNum;
         private int movePos;
+        private string player1Cows;
+        private string player2Cows;
+        private bool isPlacing;
 
         public string currentInput { get; set; }
         public Board board { get; set; }
@@ -35,6 +41,33 @@ namespace Gui
                 OnPropertyChanged(nameof(ButtonContent));
             }
         }
+        public string Player1Cows
+        {
+            get { return player1Cows; }
+            set
+            {
+                player1Cows = value;
+                OnPropertyChanged(nameof(Player1Cows));
+            }
+        }
+        public string Player2Cows
+        {
+            get { return player2Cows; }
+            set
+            {
+                player2Cows = value;
+                OnPropertyChanged(nameof(Player2Cows));
+            }
+        }
+        public bool IsPlacing
+        {
+            get { return isPlacing; }
+            set
+            {
+                isPlacing = value;
+                OnPropertyChanged(nameof(isPlacing));
+            }
+        }
 
         public GameSession()
         {
@@ -46,6 +79,11 @@ namespace Gui
             movePos = -1;
             GameMessage = "Player 1 : Placing";
             ButtonContent = "Place Cow";
+            Player1Cows = "12";
+            Player2Cows = "12";
+            IsPlacing = true;
+
+
         }
 
         private enum State
@@ -89,23 +127,26 @@ namespace Gui
                     
                     board.getCurrentMills(playerID);
 
+                    updatePlayerCows(playerID);
+
                     if (board.areNewMills(playerID))
                     {
                         currentState = State.Killing;
                         GameMessage = $"Player {playerID + 1} : Killing";
                         return;
                     }
-
+                    
                     playerID = board.switchPlayer(playerID);
 
                     if (placeNum == 23)
                     {
                         currentState = State.Moving1;
                         GameMessage = $"Player {playerID + 1}: Moving";
+                        hidePlacingBar();
                         return;
                     }
                     
-                    GameMessage = $"Player {playerID + 1} : Placing";
+                    GameMessage = $"Player {playerID + 1} : Placing";                   
                     placeNum++;                                
                     }
             }            
@@ -235,6 +276,8 @@ namespace Gui
 
         #endregion
 
+    #region Gui update functions
+
         private void updateButtonContent()
         {
             switch (currentState)
@@ -259,9 +302,24 @@ namespace Gui
                     break;
             }
         }
+        private void updatePlayerCows(int playerID)
+        {
+            if(playerID == 0)
+            {
+                Player1Cows = Convert.ToString((Convert.ToInt32(player1Cows) - 1));
+            }
+            else Player2Cows = Convert.ToString((Convert.ToInt32(player2Cows) - 1));
+        }
 
-    // Preform action depending on state of program
-    public void performAction()
+        private void hidePlacingBar()
+        {
+            IsPlacing = false;
+        }
+
+    #endregion
+
+        // Preform action depending on state of program
+        public void performAction()
         {
             switch (currentState)
             {

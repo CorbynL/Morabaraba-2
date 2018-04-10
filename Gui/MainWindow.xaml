@@ -8,6 +8,10 @@
         Title="Game" Height="768" Width="1024"
         FontSize="20pt"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -15,6 +19,22 @@
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Cows left to place" Visibility="{Binding IsPlacing, Converter={StaticResource BooleanToVisibility}}"/>
+            <TextBlock Grid.Column="1" Text="{Binding Player1Cows}" Background="IndianRed" Visibility="{Binding IsPlacing, Converter={StaticResource BooleanToVisibility}}" />
+            <TextBlock Grid.Column="2" Text="Cows left to place" Visibility="{Binding IsPlacing, Converter={StaticResource BooleanToVisibility}}"/>
+            <TextBlock Grid.Column="3" Text="{Binding Player2Cows}" Background="DeepSkyBlue" Visibility="{Binding IsPlacing, Converter={StaticResource BooleanToVisibility}}"/>
+
+
+        </Grid>
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -27,6 +47,7 @@
             <TextBlock Grid.Column= "2"  Text="{Binding GameMessage}"/>
 
         </Grid>
+        
         
         <Grid Grid.Row="2" Background="Coral">
 
