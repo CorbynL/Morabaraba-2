@@ -177,6 +177,8 @@ namespace MorabarabaV2
 
         public bool canKill(int position, int playerID)
         {
+            if (cowNotInMill(playerID))
+                return true;
             if (position < 0)
                 return false;
             if (InMill(position, playerID) && cowNotInMill(playerID))
@@ -202,6 +204,19 @@ namespace MorabarabaV2
                     return true;
             }
             return false; // Should never be reached
+        }
+
+        public bool canMoveCow(int PlayerId)
+        {
+            foreach(Cow a in Cows)
+            {
+                for(int i = 0; i<24;i++)
+                {
+                    if (a.Id == PlayerId && isValidMove(a.Position, i) && Cows[i].Id == -1)
+                        return true;
+                }
+            }
+            return false;
         }
 
         #endregion
