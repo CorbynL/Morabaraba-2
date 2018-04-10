@@ -182,9 +182,15 @@ namespace MorabarabaV2
             }
             else
             {           
-                int newPos = board.converToBoardPos(currentInput);                
+                int newPos = board.converToBoardPos(currentInput);           
                 
-                if (newPos == -1 || board.Cows[newPos].Id != -1 || !board.isValidMove(movePos, newPos))
+                if (newPos == -1 || board.Cows[newPos].Id != -1)
+                {
+                    GameMessage = "Invalid move!";
+                    return;
+                }
+
+                if (!board.isValidMove(movePos, newPos) && ownedCows(playerID) > 3) // Check if it is a valid move and if it is in flying mode
                 {
                     GameMessage = "Invalid move!";
                     return;
@@ -237,9 +243,7 @@ namespace MorabarabaV2
                     break;                
 
                 case State.End:
-                    //
-                    // TODO
-                    //
+                    //Do nothing
                     break;
             }
         }
