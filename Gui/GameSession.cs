@@ -10,6 +10,7 @@ namespace Gui
     {
         private State currentState;
         private string _gameMessage;
+        private string buttonContent;
         private int playerID;
         private int placeNum;
         private int movePos;
@@ -25,6 +26,15 @@ namespace Gui
                 OnPropertyChanged(nameof(GameMessage));
             }
         }
+        public string ButtonContent
+        {
+            get { return buttonContent; }
+            set
+            {
+                buttonContent = value;
+                OnPropertyChanged(nameof(ButtonContent));
+            }
+        }
 
         public GameSession()
         {
@@ -35,6 +45,7 @@ namespace Gui
             playerID = 0;
             movePos = -1;
             GameMessage = "Player 1 : Placing";
+            ButtonContent = "Place Cow";
         }
 
         private enum State
@@ -224,6 +235,31 @@ namespace Gui
 
         #endregion
 
+        private void updateButtonContent()
+        {
+            switch (currentState)
+            {
+                case State.Placing:
+                    ButtonContent = "Place Cow";
+                    break;
+
+                case State.Killing:
+                    ButtonContent = "Kill Cow";
+                    break;
+
+                case State.Moving1:
+                    ButtonContent = "Choose Cow";
+                    break;
+                case State.Moving2:
+                    ButtonContent = "Place Cow";
+                    break;
+
+                case State.End:
+                    ButtonContent = "GAME OVER";
+                    break;
+            }
+        }
+
     // Preform action depending on state of program
     public void performAction()
         {
@@ -231,19 +267,23 @@ namespace Gui
             {
                 case State.Placing:
                     placeCow();
+                    updateButtonContent();
                     break;
 
                 case State.Killing:
                     killCow();
+                    updateButtonContent();
                     break;
 
                 case State.Moving1:
                 case State.Moving2:
                     moveCow();
+                    updateButtonContent();
                     break;                
 
                 case State.End:
                     //Do nothing
+                    updateButtonContent();
                     break;
             }
         }
