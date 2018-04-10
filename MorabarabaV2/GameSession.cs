@@ -54,10 +54,7 @@ namespace MorabarabaV2
         {
 
             if(placeNum < 24)
-            {
-
-                board.updateMills(playerID);
-
+            {              
                 int input = board.converToBoardPos(currentInput);
                 if(input == -1)
                 {
@@ -72,9 +69,13 @@ namespace MorabarabaV2
 
                 else
                 {
-                    board.placeCow(playerID, input, placeNum);
-                    OnPropertyChanged(nameof(board));
+                    board.updateMills(playerID);                   
 
+                    board.placeCow(playerID, input, placeNum);
+                    board.removeBrokenMills(playerID);
+
+                    OnPropertyChanged(nameof(board));
+                    
                     board.getCurrentMills(playerID);
 
                     if (board.areNewMills(playerID))
@@ -114,7 +115,8 @@ namespace MorabarabaV2
 
             else
             {
-                board.Cows[input] = new Cow(input, ' ', -1, -1); // Put empty cow at crime scene
+                board.Cows[input] = new Cow(input, ' ', -1, -1); // Put empty cow at crime scene                
+
                 OnPropertyChanged(nameof(board));
 
                 if (placeNum < 23)
@@ -192,6 +194,8 @@ namespace MorabarabaV2
 
                 board.placeCow(playerID, newPos, board.Cows[movePos].CowNumber); // Place cow at new position
                 board.Cows[movePos] = new Cow(movePos, ' ', -1, -1); // Put empty cow at original place
+
+                board.removeBrokenMills(playerID);
 
                 OnPropertyChanged(nameof(board));
                 

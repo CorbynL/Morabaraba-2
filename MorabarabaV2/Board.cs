@@ -110,6 +110,18 @@ namespace MorabarabaV2
             }
         }
 
+        public void removeBrokenMills(int playerID)
+        {
+            foreach (Mill mill in Mills)
+            {
+                if(!areInMill(mill.Positions, playerID) && mill.Id == playerID)
+                {
+                    mill.isNew = false;
+                    mill.Id = -1;
+                }
+            }
+        }
+
         #endregion
 
         #region Cow Functions
