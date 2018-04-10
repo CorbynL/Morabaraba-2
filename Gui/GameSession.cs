@@ -178,15 +178,6 @@ namespace Gui
         {
             if (currentState == State.Moving1)
             {
-                /*      To be tested (If there are no more moves to make
-                if (!board.canMoveCow(playerID))
-                {
-                    currentState = State.End;
-                    playerID = board.switchPlayer(playerID);
-                    GameMessage = "NO MORE MOVES";// $"Player {playerID + 1} wins!";
-                }
-                */
-
                 movePos = board.converToBoardPos(currentInput);
 
                 if (movePos == -1 || board.Cows[movePos].Id != playerID)
