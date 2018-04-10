@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace MorabarabaV2
+namespace Gui
 {
     public class BaseNotificationClass : INotifyPropertyChanged
     {

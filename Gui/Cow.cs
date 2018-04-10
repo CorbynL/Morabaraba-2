@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MorabarabaV2
+namespace Gui
 { 
     public class Cow
     {
