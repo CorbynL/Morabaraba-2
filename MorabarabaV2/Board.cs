@@ -162,19 +162,6 @@ namespace MorabarabaV2
                 || Cows[position].Id == -1) { return false; }
             return true;
         }
-        
-
-        //needed?
-        public bool killCow(int position, int playerID)
-        {
-            if (!canKill(position, playerID))
-                return false;
-
-            Cows[position] = new Cow(position, ' ', -1, -1);
-
-            return true;
-
-        }
 
         public void placeCow(int playerID, int input, int cowNumber)
         {
