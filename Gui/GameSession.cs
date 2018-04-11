@@ -90,7 +90,7 @@ namespace Gui
             box.Width = excuses.Width;
             box.Height = excuses.Height;
             box.HorizontalAlignment = HorizontalAlignment.Center;
-            box.Text = "Dear, Yusuf.\nTo prevent you from frustion and total anguish, I will list our \"bugs\"\n 1. There is no draw state, so if you reach a draw like position, you will be stuck :D\n 2. If all cows are in a mill, you can't kill any of them. Stuck again :D\n\n You may now close this window and continue... :D";
+            box.Text = "Dear, Yusuf.\nTo prevent you from frustration and total anguish, I will list our \"bugs\"\n 1. There is no draw state, so if you reach a draw like position, you will be stuck :D\n 2. If all cows are in a mill, you can't kill any of them. Stuck again :D\n\n You may now close this window and continue... :D";
             box.Background = Brushes.LightBlue;
             excuses.Background = Brushes.Black;
             excuses.FontSize = 20;
